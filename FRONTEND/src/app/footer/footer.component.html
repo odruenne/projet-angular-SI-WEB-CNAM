@@ -1,0 +1,6 @@
+<footer>
+    <h1>DIFFÉRENTS PROJETS WEB RÉALISÉS</h1>
+    <div>
+        <a *ngFor="let project of projects" [href]="project.link" target="_blank">{{project.name}}</a>
+    </div>
+</footer>

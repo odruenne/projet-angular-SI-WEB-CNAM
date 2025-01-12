@@ -1,0 +1,17 @@
+<div *ngIf="userData; else noData">
+    <h2>Données de l'utilisateur</h2>
+    <p><strong>Nom :</strong> {{ userData.lastName }}</p>
+    <p><strong>Prénom :</strong> {{ userData.firstName }}</p>
+    <p><strong>Adresse :</strong> {{ userData.address }}</p>
+    <p><strong>Code postal :</strong> {{ userData.zipCode }}</p>
+    <p><strong>Ville :</strong> {{ userData.city }}</p>
+    <p><strong>Pays :</strong> {{ userData.country }}</p>
+    <p><strong>Téléphone :</strong> {{ userData.phoneNumber }}</p>
+    <p><strong>Adresse mail :</strong> {{ userData.mailAddress }}</p>
+    <p><strong>Civilité :</strong> {{ userData.civility }}</p>
+    <p><strong>Identifiant :</strong> {{ userData.login }}</p>
+</div>
+
+<ng-template #noData>
+    <p>Merci de remplir le formulaire pour afficher vos informations.</p>
+</ng-template>

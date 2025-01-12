@@ -1,0 +1,30 @@
+<h1> My shopping cart</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Product details</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items$ | async; index as i">
+            <td>
+            <img src="{{item.imageURL}}"/>
+            <p><strong>{{ item.name }}</strong></p>
+            <i>Taste : {{ item.taste }}</i>
+            </td>
+            <td>
+                <div class="wrapper">
+                    <span class="minus" (click)="decrementQuantity(item)">-</span>
+                    <span class="num">{{ item.quantity }}</span>
+                    <span class="plus" (click)="incrementQuantity(item)">+</span>
+                  </div>
+            </td>
+            <td>
+            <p>{{ item.pricePerKilo * item.quantity }} €</p>
+            </td>   
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+[
+    {"name": "Purina One Kibbles", "pricePerKilo" : 25, "taste":"Chicken","imageURL": "https://media.zooplus.com/bilder/6/400/07613038195148_h1n1_01_fr_44166443_6.jpg","quantity": 1, "totalPrice": 25},
+    {"name": "Hill's Kibbles", "pricePerKilo" : 30, "taste":"Tuna","imageURL":"https://www.easypara.com/media/catalog/product/4/0/40788.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700","quantity": 1, "totalPrice": 30},
+    {"name": "Almo Nature Kibbles", "pricePerKilo" : 36, "taste":"Beef","imageURL":"https://cdn.webshopapp.com/shops/275040/files/450603970/1000x1000x2/almo-nature-almo-nature-sterilised-dry-food-cat-40.jpg","quantity": 1, "totalPrice": 36},
+    {"name": "Meow Kibbles", "pricePerKilo" : 10, "taste":"Trout","imageURL": "https://media.auchan.fr/A0220140130000632619PRIMARY_2048x2048/B2CD/","quantity": 1, "totalPrice": 10},
+    {"name": "Ultima Kibbles", "pricePerKilo" : 41, "taste":"Chicken","imageURL":"https://media.auchan.fr/A0220110119000242941PRIMARY_2048x2048/B2CD/","quantity": 1, "totalPrice": 41},
+    {"name": "Brekkies Kibbles", "pricePerKilo" : 13, "taste":"Chicken","imageURL":"https://www.cdiscount.com/pdt2/7/1/0/1/700x700/bre1688052117710/rw/croquette-pour-chat-au-poulet-sterilise-brekkies.jpg","quantity": 1, "totalPrice": 13},
+    {"name": "Pro Kibbles", "pricePerKilo" : 29, "taste":"Turkey","imageURL": "https://www.pro-nutrition.fr/2912-home_default/pure-life-chat-adult-dinde-croquettes-sans-cereales-pour-chat-a-la-dinde.jpg","quantity": 1, "totalPrice": 29},
+    {"name": "Wagyu Beef Kibbles", "pricePerKilo" : 57, "taste":"Beef","imageURL":"https://www.sallyetcie.com/wp-content/uploads/30-GR-Coeur-Boeuf-Wagyu-hache.png","quantity": 1, "totalPrice": 57},
+    {"name": "Pro Kibbles", "pricePerKilo" : 24, "taste":"Duck","imageURL":"https://www.everland-petfood.com/wp-content/uploads/2020/11/3D_sterilised_cat_duck_4kg_RVB_BD.png","quantity": 1, "totalPrice": 24}
+]

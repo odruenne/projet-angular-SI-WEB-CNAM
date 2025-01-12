@@ -1,0 +1,22 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+#data {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+app-search-engine {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-top: 70px;
+}

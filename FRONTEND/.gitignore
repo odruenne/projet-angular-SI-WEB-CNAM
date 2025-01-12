@@ -1,0 +1,7 @@
+.angular/
+.editorconfig
+.vscode/
+18.2.6/
+dist/*
+node_modules/
+public/

@@ -1,0 +1,9 @@
+<div id="main-div">
+    <div *ngFor="let kibble of kibbles">
+        <h1>{{ kibble.name }}</h1>
+        <p>Price per kilo : {{ kibble.pricePerKilo }} €</p>
+        <p id="taste">Taste : {{ kibble.taste }}</p>
+        <img src="{{kibble.imageURL}}"/>
+        <button (click)="addItemToCart(kibble)">Add to cart</button>
+    </div>
+</div>
