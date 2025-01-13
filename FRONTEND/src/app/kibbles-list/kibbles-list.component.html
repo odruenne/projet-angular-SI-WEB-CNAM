@@ -1,9 +1,20 @@
 <div id="main-div">
-    <div *ngFor="let kibble of kibbles">
-        <h1>{{ kibble.name }}</h1>
-        <p>Price per kilo : {{ kibble.pricePerKilo }} €</p>
-        <p id="taste">Taste : {{ kibble.taste }}</p>
+    <div *ngFor="let kibble of kibbles; index as i" id="kibbles">
+        <div [ngClass]="approvedByTokyo ? 'kibbles-header' : ''">
+            <div id="left">
+                <h1>{{ kibble.name }}</h1>
+                <p>Prix: {{ kibble.pricePerKilo }} €</p>
+                <p id="taste">Goût : {{ kibble.taste }}</p>
+            </div>
+            <div id="right" *ngIf="approvedByTokyo">
+                <img src="../../assets/img/approved.png" id="toto">
+                <p id="toto-text">Approuvée par Tokyo</p>
+            </div>
+        </div>
         <img src="{{kibble.imageURL}}"/>
-        <button (click)="addItemToCart(kibble)">Add to cart</button>
+        <div id="buttons">
+            <a id="more">En savoir plus</a>
+            <button (click)="addItemToCart(kibble)" id="add-cart">Ajouter au panier</button>
+        </div>
     </div>
 </div>

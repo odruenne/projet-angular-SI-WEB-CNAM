@@ -1,11 +1,12 @@
+<h1>Se connecter</h1>
 <form [formGroup]="connectionForm" (ngSubmit)="onSubmit($event)">
     <label for="login">Login</label>
     <input type="text" id="login" name="login" formControlName="login" appFormFieldHighlight>
 
-    <label for="password">Password</label>
+    <label for="password">Mot de passe</label>
     <input type="password" id="password" name="password" formControlName="password" appFormFieldHighlight>
 
-    <button type="submit">Login</button>
+    <button type="submit">SE CONNECTER</button>
 </form>
 <h1>Pour tester <br/> login : oceane <br/> mdp : 000000</h1>
 <div *ngIf="showErrorMessage">

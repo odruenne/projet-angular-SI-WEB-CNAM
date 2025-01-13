@@ -10,7 +10,8 @@ import { JwtInterceptor } from './jwt-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes, withHashLocation()),
+    // pas oublier  withHashLocation()
+    provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(NgxsModule.forRoot([ShoppingCartState])),
     provideHttpClient(withInterceptorsFromDi()),

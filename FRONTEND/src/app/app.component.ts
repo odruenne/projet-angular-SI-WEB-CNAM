@@ -15,7 +15,7 @@ import { FooterComponent } from './footer/footer.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'tp06_druenne_oceane';
+  title = 'La boutique de Tokyo';
   filters = { taste: '', maxPrice: Infinity };
 
   constructor() { }

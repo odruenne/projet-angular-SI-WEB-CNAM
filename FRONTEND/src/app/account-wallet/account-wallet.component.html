@@ -1,0 +1,70 @@
+<div id="main-div">
+    <div id="payment-methods">
+        <h1>Mes moyens de paiement</h1>
+        <div id="valid-payment-methods">
+            <p class="info">Cartes bancaires en cours de validité</p>
+            <!-- <div *ngFor="let creditCard of creditCards" id="validCreditCards"> </div> -->
+            <div id="creditCardData">
+                <div id="credit-card-img">
+                    <img src="../../assets/img/valid-credit-card.png">
+                </div>
+                <div id="data">
+                    <p>Carte n°index : **** - **** - **** - **09</p>
+                    <p>Ajoutée le : XX/XX/XXXX</p>
+                    <button id="delete-credit-card">SUPPRIMER</button>
+                </div>
+            </div>
+            <div id="creditCardData">
+                <div id="credit-card-img">
+                    <img src="../../assets/img/valid-credit-card.png">
+                </div>
+                <div id="data">
+                    <p>Carte n°index : **** - **** - **** - **09</p>
+                    <p>Ajoutée le : XX/XX/XXXX</p>
+                    <button id="delete-credit-card">SUPPRIMER</button>
+                </div>
+            </div>
+        </div>
+        <div id="expired-payment-methods">
+            <p class="info">Cartes bancaires périmées</p>
+            <div id="expiredCreditCardData">
+                <div id="credit-card-img">
+                    <img src="../../assets/img/expired-credit-card.png">
+                </div>
+                <div id="data">
+                    <p>Carte n°index : **** - **** - **** - **09</p>
+                    <p>Ajoutée le : XX/XX/XXXX</p>
+                    <button id="delete-credit-card">SUPPRIMER</button>
+                </div>
+            </div>
+            <div id="expiredCreditCardData">
+                <div id="credit-card-img">
+                    <img src="../../assets/img/expired-credit-card.png">
+                </div>
+                <div id="data">
+                    <p>Carte n°index : **** - **** - **** - **09</p>
+                    <p>Ajoutée le : XX/XX/XXXX</p>
+                    <button id="delete-credit-card">SUPPRIMER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-credit-card">
+        <h1>Ajouter une carte bancaire</h1>
+        <form [formGroup]="newCreditCardForm" (ngSubmit)="onSubmit($event)">
+            <label for="primaryAccountNumber">Code de la carte (Primary Account Number (PAN))</label>
+            <input type="text" id="primaryAccountNumber" name="primaryAccountNumber" formControlName="primaryAccountNumber" appFormFieldHighlight>
+        
+            <label for="name">Nom du propriétaire de la carte</label>
+            <input type="text" id="name" name="name" formControlName="name" appFormFieldHighlight>
+        
+            <label for="expirationDate">Date d'expiration (MM/YYYY)</label>
+            <input type="text" id="expirationDate" name="expirationDate" formControlName="expirationDate" appFormFieldHighlight>
+        
+            <label for="cardValidationCode">Code de validation de la carte (Card Validation Code (CVC))</label>
+            <input type="text" id="cardValidationCode" name="cardValidationCode" formControlName="cardValidationCode" appFormFieldHighlight>
+        
+            <button id="add-credit-card-button" type="submit">AJOUTER MA CARTE BANCAIRE</button>
+        </form>
+    </div>
+</div>

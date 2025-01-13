@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  backendURL: "https://cnamapp-49fd.onrender.com/api",
+  backendURL: "http://localhost:3000",
   access_token: "access_token"
 };

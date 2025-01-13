@@ -1,24 +1,29 @@
+<h1>Modifier mes informations personnelles</h1>
+
 <form [formGroup]="updateAccountDataForm" (ngSubmit)="onSubmit($event)">
-    <label for="lastName">Last Name</label>
+    <label for="lastName">Nom de famille</label>
     <input type="text" id="lastName" name="lastName" formControlName="lastName" appFormFieldHighlight>
 
-    <label for="firstName">First Name</label>
+    <label for="firstName">Prénom</label>
     <input type="text" id="firstName" name="firstName" formControlName="firstName" appFormFieldHighlight>
 
-    <label for="mailAddress">Mail Address</label>
+    <label for="mailAddress">Adresse mail</label>
     <input type="email" id="mailAddress" name="mailAddress" formControlName="mailAddress" appFormFieldHighlight>
 
-    <label for="postalAddress">Postal Address</label>
+    <label for="postalAddress">Adresse postale</label>
     <input type="text" id="postalAddress" name="postalAddress" formControlName="postalAddress" appFormFieldHighlight>
 
-    <label for="zipCode">Zip Code</label>
+    <label for="zipCode">Code postal</label>
     <input type="text" id="zipCode" name="zipCode" formControlName="zipCode" appFormFieldHighlight>
 
-    <label for="city">City</label>
+    <label for="city">Ville</label>
     <input type="text" id="city" name="city" formControlName="city" appFormFieldHighlight>
 
-    <label for="country">Country</label>
+    <label for="country">Pays</label>
     <input type="text" id="country" name="country" formControlName="country" appFormFieldHighlight>
 
-    <button type="submit">Update data</button>
+    <div id="buttons">
+        <button id="edit-data" type="submit">Mettre à jour mes informations personnelles</button>
+        <button id="delete-account">Supprimer mon compte</button>
+    </div>
 </form>

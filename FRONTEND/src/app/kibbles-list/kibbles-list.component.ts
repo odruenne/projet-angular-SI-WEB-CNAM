@@ -5,17 +5,17 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './kibbles-list.component.html',
   styleUrls: ['./kibbles-list.component.css'],
 })
 export class KibblesList implements OnInit {
-
+  approvedByTokyo: boolean = true;
   kibbles: Kibbles[];
 
   constructor(private kibblesService : KibblesService, private store: Store, private authService: AuthService, private router: Router) { }

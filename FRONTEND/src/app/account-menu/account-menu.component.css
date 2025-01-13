@@ -1,0 +1,54 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+#main-div {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
+
+.option {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+    border: 1px solid #565151;
+    width: 400px;
+    height: 180px;
+    border-radius: 26px;
+    margin-top: 1%;
+}
+
+.option:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 80px;
+    height: 85px;
+}
+
+#wallet {
+    width: 105px!important;
+    height: 85px!important;
+}
+
+.right {
+    width: 245px;
+    height: 105px;
+}
+
+.title {
+    font-weight: bold;
+    color: black;
+}
+
+p {
+    color: #837F7F;
+}

@@ -1,0 +1,34 @@
+<h1>S'inscrire</h1>
+<form [formGroup]="createAccountForm" (ngSubmit)="onSubmit($event)">
+    <label for="lastName">Nom de famille</label>
+    <input type="text" id="lastName" name="lastName" formControlName="lastName" appFormFieldHighlight>
+
+    <label for="firstName">Prénom</label>
+    <input type="text" id="firstName" name="firstName" formControlName="firstName" appFormFieldHighlight>
+
+    <label for="mailAddress">Adresse mail</label>
+    <input type="email" id="mailAddress" name="mailAddress" formControlName="mailAddress" appFormFieldHighlight>
+
+    <label for="postalAddress">Adresse postale</label>
+    <input type="text" id="postalAddress" name="postalAddress" formControlName="postalAddress" appFormFieldHighlight>
+
+    <label for="zipCode">Code postal</label>
+    <input type="text" id="zipCode" name="zipCode" formControlName="zipCode" appFormFieldHighlight>
+
+    <label for="city">Ville</label>
+    <input type="text" id="city" name="city" formControlName="city" appFormFieldHighlight>
+
+    <label for="country">Pays</label>
+    <input type="text" id="country" name="country" formControlName="country" appFormFieldHighlight>
+
+    <label for="login">Login</label>
+    <input type="text" id="login" name="login" formControlName="login" appFormFieldHighlight>
+
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" formControlName="password" appFormFieldHighlight>
+
+    <label for="confirmNewPassword">Confirmez le nouveau mot de passe</label>
+    <input type="password" id="confirmNewPassword" name="confirmNewPassword" formControlName="confirmNewPassword" appFormFieldHighlight>
+
+    <button id="register-data" type="submit">S'INSCRIRE</button>
+</form>

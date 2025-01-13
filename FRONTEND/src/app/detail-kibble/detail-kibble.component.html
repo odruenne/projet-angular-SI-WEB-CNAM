@@ -1,0 +1,57 @@
+<div id="main-div">
+    <div id="left">
+        <img src="https://www.sallyetcie.com/wp-content/uploads/30-GR-Coeur-Boeuf-Wagyu-hache.png"/>
+    </div>
+    <div id="right">
+        <h1>{{kibblesName}}</h1>
+        <hr>
+        <div id="menu">
+            <p>DESCRIPTION</p>
+            <p id="valeurs-menu">VALEURS NUTRITIONNELLES</p>
+        </div>
+        <hr>
+        <p [ngClass]="kibblesInStock ? 'status-inStock' : ''">EN STOCK</p>
+        <p [ngClass]="kibblesSoonOutOfStock ? 'status-soonOutOfStock' : ''">BIENTÔT ÉPUISÉ (x unités restantes)</p>
+        <p [ngClass]="kibblesOutOfStock ? 'status-outOfStock' : ''">EN RUPTURE</p>
+        <p>{{kibblesDescription}}</p>
+        <p id="taste">Goût : {{kibblesTaste}}</p>
+        <div id="toto-avis" *ngIf="approvedByTokyo">
+            <img src="../../assets/img/approved.png" id="toto">
+            <p id="toto-text">Avis de Tokyo : {{kibblesTokyoOpinion}}</p>
+        </div>
+        <div id="choice">
+            <div class="wrapper">
+                <span class="minus">-</span>
+                <span class="num"> 1 </span>
+                <span class="plus">+</span>
+            </div>
+            <p id="price">{{kibblesPrice}}</p>
+        </div>
+        <div id="valeurs-nutritionnelles">
+            <div id="ligne">
+                <p>Humidité</p>
+                <p>{{kibblesHumidity}}</p>
+            </div>
+            <div id="ligne">
+                <p>Calcium</p>
+                <p>{{kibblesCalcium}}</p>
+            </div>
+            <div id="ligne">
+                <p>Cendres brutes</p>
+                <p>{{kibblesRawAshes}}</p>
+            </div>
+            <div id="ligne">
+                <p>Protéines brutes</p>
+                <p>{{kibblesRawProteins}}</p>
+            </div>
+            <div id="ligne">
+                <p>Matières grasses brutes</p>
+                <p>{{kibblesRawFats}}</p>
+            </div>
+            <div id="ligne">
+                <p>Fibres brutes</p>
+                <p>{{kibblesRawFibers}}</p>
+            </div>
+        </div>
+    </div>
+</div>
