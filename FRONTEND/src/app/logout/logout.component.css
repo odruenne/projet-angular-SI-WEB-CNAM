@@ -1,18 +1,21 @@
 * {
-    font-family: Arial;
+    font-family: "Roboto", sans-serif;
+}
+
+h1 {
+    text-align: center;
 }
 
 button {
     align-items: center;
     background-color: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid #6D2BF8;
     border-radius: .25rem;
     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
     box-sizing: border-box;
-    color: rgba(0, 0, 0, 0.85);
+    color: #6D2BF8;
     cursor: pointer;
     display: inline-flex;
-    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
     font-weight: 600;
     justify-content: center;
@@ -29,13 +32,13 @@ button {
     touch-action: manipulation;
     vertical-align: baseline;
     width: auto;
-  }
+}
   
 button:hover,
 button:focus {
-    border-color: rgba(0, 0, 0, 0.15);
+    background-color: #6D2BF8;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-    color: rgba(0, 0, 0, 0.65);
+    color: white;
 }
 
 button:hover {
@@ -48,8 +51,4 @@ button:active {
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     color: rgba(0, 0, 0, 0.65);
     transform: translateY(0);
-}
-
-h1 {
-    text-align: center;
 }
