@@ -5,18 +5,9 @@
 </head>
 <div id="header-div">
     <h1><a routerLink="catalog">{{ title }}</a></h1>
-    <!-- <div id="buttons-div">
-        <button routerLink="app-shopping-cart">
-            <p>View shopping cart</p>
-            <p>Items : {{ nbOfItems | async }}</p>
-        </button>
-        <button routerLink="profile"><p>Check my profile</p></button>
-        <button routerLink="catalog"><p>Catalog</p></button>
-    </div> -->
     <div id="links" *ngIf="authentificated">
         <a routerLink="account">Voir mon compte</a>
         <a routerLink="app-shopping-cart">Panier ({{ nbOfItems | async}})</a>
         <a routerLink="app-index">Se déconnecter</a>
     </div>
-
 </div>
