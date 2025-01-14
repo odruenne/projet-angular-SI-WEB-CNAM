@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-account-security',
@@ -12,11 +12,36 @@ export class AccountSecurityComponent {
   editPasswordForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.editPasswordForm = this.formBuilder.group({
-      currentPassword: ['', [Validators.required]],
-      newPassword: ['',[Validators.required]],
-      confirmNewPassword: ['',[Validators.required]],
-    });
+    this.editPasswordForm = this.formBuilder.group(
+      {
+        currentPassword: ['', [Validators.required]],
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(12), 
+            Validators.pattern('^(?=.*[A-Z])'), 
+            Validators.pattern('^(?=(?:.*\\d){0,1})'), 
+            Validators.pattern('^(?=(?:.*[!@#$%^&*(),.?":{}|<>]){0,1})'), 
+          ]
+        ],
+        confirmNewPassword: ['', [Validators.required]],
+      },
+      { validators: this.matchPasswords('newPassword', 'confirmNewPassword') }
+    );
+  }
+
+  matchPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const password = group.get(passwordKey)?.value;
+      const confirmPassword = group.get(confirmPasswordKey)?.value;
+
+      if (password !== confirmPassword) {
+        return { passwordsNotMatching: true };
+      }
+
+      return null;
+    };
   }
 
   // faire le onSubmit
