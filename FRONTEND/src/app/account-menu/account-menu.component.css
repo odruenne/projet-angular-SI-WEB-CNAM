@@ -34,11 +34,6 @@ img {
     height: 85px;
 }
 
-#wallet {
-    width: 105px!important;
-    height: 85px!important;
-}
-
 .right {
     width: 245px;
     height: 105px;
@@ -47,6 +42,11 @@ img {
 .title {
     font-weight: bold;
     color: black;
+}
+
+#wallet {
+    width: 105px!important;
+    height: 85px!important;
 }
 
 p {
