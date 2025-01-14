@@ -10,17 +10,17 @@ import { AccountMenuComponent } from './account-menu/account-menu.component';
 import { AccountSecurityComponent } from './account-security/account-security.component';
 import { AccountWalletComponent } from './account-wallet/account-wallet.component';
 import { RegisterComponent } from './register/register.component';
-import { DetailKibbleComponent } from './detail-kibble/detail-kibble.component';
+import { DetailsKibblesComponent } from './details-kibbles/details-kibbles.component';
 export const routes: Routes = [
     {path: 'login', component: LoginFormComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'account', component: AccountMenuComponent, canActivate: [AuthGuard]},
     {path: 'logout', component: LogoutComponent},
-    {path: 'security', component: AccountSecurityComponent, canActivate: [AuthGuard]},
-    {path: 'wallet', component: AccountWalletComponent, canActivate: [AuthGuard]},
-    {path: 'profile', component: EditCustomerAccountDataFormComponent, canActivate: [AuthGuard]},
+    {path: 'account-security', component: AccountSecurityComponent, canActivate: [AuthGuard]},
+    {path: 'account-wallet', component: AccountWalletComponent, canActivate: [AuthGuard]},
+    {path: 'account-profile', component: EditCustomerAccountDataFormComponent, canActivate: [AuthGuard]},
     {path: 'catalog', component: HomePageComponent, canActivate: [AuthGuard]},
-    {path: 'kibbles-details', component: DetailKibbleComponent, canActivate: [AuthGuard]},
+    {path: 'details-kibbles/:id', component: DetailsKibblesComponent, canActivate: [AuthGuard]},
     {path: 'app-shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard]},
     {path: '**', component: IndexComponent},
 ];

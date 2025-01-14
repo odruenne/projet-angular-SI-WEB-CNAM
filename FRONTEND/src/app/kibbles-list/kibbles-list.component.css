@@ -59,33 +59,6 @@ img {
     margin-left: 121px;
 }
 
-/* button {
-    appearance: none;
-    background-color: #fafafa;
-    border: 2px solid #1A1A1A;
-    border-radius: 15px;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: normal;
-    margin-left: 40px;
-    margin-top: 55px;
-    outline: none;
-    text-align: center;
-    text-decoration: none;
-    width: 200px;
-    height: 50px;
-}
-
-button:hover {
-    background-color: #6D2BF8;
-    color: white;
-    border: #6D2BF8;
-} */
-
 #buttons {
     display: flex;
 	flex-direction: row;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailKibbleComponent } from './detail-kibble.component';
+import { DetailKibbleComponent } from './details-kibbles.component';
 
 describe('DetailKibbleComponent', () => {
   let component: DetailKibbleComponent;

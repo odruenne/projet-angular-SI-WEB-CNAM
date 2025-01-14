@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail-kibble',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './detail-kibble.component.html',
-  styleUrl: './detail-kibble.component.css'
+  templateUrl: './details-kibbles.component.html',
+  styleUrl: './details-kibbles.component.css'
 })
-export class DetailKibbleComponent {
+export class DetailsKibblesComponent {
+  selectedMenu: 'description' | 'nutrition' = 'description'; 
+  kibbleId: number;
   kibblesName: string = "NOM DES CROQUETTES";
   kibblesInStock: boolean = true;
   kibblesSoonOutOfStock: boolean = true;
@@ -25,5 +28,26 @@ export class DetailKibbleComponent {
   kibblesRawFibers: string = "2,5%";
   kibblesPrice: string = "13,90€";
 
+  constructor(private route: ActivatedRoute) {}
+
+  showNutrition: boolean = false;
+  showDescription: boolean = true;
+
+  toggleDescription() {
+    this.showNutrition = !this.showNutrition;
+    this.showDescription = !this.showDescription;
+    this.selectedMenu = 'description'; 
+  }
+
+  toggleNutrition() {
+    this.showNutrition = !this.showNutrition;
+    this.showDescription = !this.showDescription;
+    this.selectedMenu = 'nutrition'; 
+  }
+
+  ngOnInit(): void {
+    this.kibbleId = Number(this.route.snapshot.paramMap.get('id'));
+
+  }
 
 }

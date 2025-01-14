@@ -11,6 +11,15 @@
 	align-items: stretch;
 	align-content: stretch;
     margin-top: 5%;
+    height: 100%;
+}
+
+#right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%; 
+    overflow: auto; 
 }
 
 #menu {
@@ -20,19 +29,24 @@
 	justify-content: flex-start;
 	align-items: stretch;
 	align-content: stretch;
+    font-size: 1.5em;
+}
+
+#menu p.current {
+    color: #4E4E4E; 
+    font-weight: bold;
 }
 
 #menu p {
     color: #AEAEAE;
-    font-weight: bold;
 }
 
 #valeurs-menu {
     margin-left: 10%;
 }
 
-#current {
-    color: #4E4E4E;
+#valeurs-nutritionnelles {
+    margin-left: 25%;
 }
 
 .status-inStock {
@@ -104,6 +118,29 @@
 #price {
     font-weight: bold;
     font-size: 30px;
+}
+
+#add-cart {
+    border: 1px solid #6D2BF8;
+    margin: 0 auto;
+    width: 40%;
+    background-color: #6D2BF8;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 24px;
+    display: block;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 54px;
+}
+
+#add-cart:hover {
+    cursor: pointer;
+    border-color: #3c168f;
+    color: white;
+    background-color: #3c168f;
 }
 
 #choice {

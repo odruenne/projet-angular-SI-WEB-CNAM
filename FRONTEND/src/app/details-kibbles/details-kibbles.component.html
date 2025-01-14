@@ -6,28 +6,22 @@
         <h1>{{kibblesName}}</h1>
         <hr>
         <div id="menu">
-            <p>DESCRIPTION</p>
-            <p id="valeurs-menu">VALEURS NUTRITIONNELLES</p>
+            <p (click)="toggleDescription()" [ngClass]="{'current': selectedMenu === 'description'}">DESCRIPTION</p>
+            <p id="valeurs-menu" (click)="toggleNutrition()" [ngClass]="{'current': selectedMenu === 'nutrition'}">VALEURS NUTRITIONNELLES</p>
         </div>
         <hr>
         <p [ngClass]="kibblesInStock ? 'status-inStock' : ''">EN STOCK</p>
         <p [ngClass]="kibblesSoonOutOfStock ? 'status-soonOutOfStock' : ''">BIENTÔT ÉPUISÉ (x unités restantes)</p>
         <p [ngClass]="kibblesOutOfStock ? 'status-outOfStock' : ''">EN RUPTURE</p>
-        <p>{{kibblesDescription}}</p>
-        <p id="taste">Goût : {{kibblesTaste}}</p>
-        <div id="toto-avis" *ngIf="approvedByTokyo">
-            <img src="../../assets/img/approved.png" id="toto">
-            <p id="toto-text">Avis de Tokyo : {{kibblesTokyoOpinion}}</p>
-        </div>
-        <div id="choice">
-            <div class="wrapper">
-                <span class="minus">-</span>
-                <span class="num"> 1 </span>
-                <span class="plus">+</span>
+        <div id="description" *ngIf="showDescription">
+            <p>{{kibblesDescription}}</p>
+            <p id="taste">Goût : {{kibblesTaste}}</p>
+            <div id="toto-avis" *ngIf="approvedByTokyo">
+                <img src="../../assets/img/approved.png" id="toto">
+                <p id="toto-text">Avis de Tokyo : {{kibblesTokyoOpinion}}</p>
             </div>
-            <p id="price">{{kibblesPrice}}</p>
         </div>
-        <div id="valeurs-nutritionnelles">
+        <div id="valeurs-nutritionnelles" *ngIf="showNutrition">
             <div id="ligne">
                 <p>Humidité</p>
                 <p>{{kibblesHumidity}}</p>
@@ -53,5 +47,14 @@
                 <p>{{kibblesRawFibers}}</p>
             </div>
         </div>
+        <div id="choice">
+            <div class="wrapper">
+                <span class="minus">-</span>
+                <span class="num"> 1 </span>
+                <span class="plus">+</span>
+            </div>
+            <p id="price">{{kibblesPrice}}</p>
+        </div>
+        <button id="add-cart">Ajouter au panier</button>
     </div>
 </div>

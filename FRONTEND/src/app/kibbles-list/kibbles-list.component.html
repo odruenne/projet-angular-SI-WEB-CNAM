@@ -1,5 +1,5 @@
 <div id="main-div">
-    <div *ngFor="let kibble of kibbles; index as i" id="kibbles">
+    <div *ngFor="let kibble of kibbles" id="kibbles" (click)="goToDetails(kibble.id)">
         <div [ngClass]="approvedByTokyo ? 'kibbles-header' : ''">
             <div id="left">
                 <h1>{{ kibble.name }}</h1>

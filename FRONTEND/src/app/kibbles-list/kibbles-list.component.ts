@@ -4,7 +4,6 @@ import { Kibbles } from '../../store/models/kibbles';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
-import { AuthService } from '../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -18,7 +17,7 @@ export class KibblesList implements OnInit {
   approvedByTokyo: boolean = true;
   kibbles: Kibbles[];
 
-  constructor(private kibblesService : KibblesService, private store: Store, private authService: AuthService, private router: Router) { }
+  constructor(private kibblesService : KibblesService, private store: Store, private router: Router) { }
 
   ngOnInit() {
     this.kibblesService.kibblesObservable.subscribe(res => this.kibbles = res);
@@ -27,6 +26,10 @@ export class KibblesList implements OnInit {
 
   getKibbles() : void {
     this.kibblesService.getKibbles('', Infinity);
+  }
+
+  goToDetails(id: number): void {
+    this.router.navigate([`/details-kibbles/${id}`]);
   }
 
   addItemToCart(kibble: Kibbles) {

@@ -1,4 +1,5 @@
 export class Kibbles {
+    id: number;
     name : string;
     pricePerKilo: number = 0;
     taste: string;
