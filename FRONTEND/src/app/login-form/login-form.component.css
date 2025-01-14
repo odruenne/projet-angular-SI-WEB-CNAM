@@ -2,6 +2,10 @@
   font-family: Arial;
 }
 
+h1 {
+  text-align: center;
+}
+
 form 
 {
   display: flex;
@@ -25,8 +29,6 @@ label
 }
 
 input[type="text"],
-input[type="email"],
-input[type="tel"],
 input[type="password"]
 {
   width: calc(100% - 22px);
@@ -35,17 +37,6 @@ input[type="password"]
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-}
-
-small 
-{
-  font-size: 12px;
-  color: #666;
-}
-
-select 
-{
-  width: 100%;
 }
 
 button {
@@ -92,8 +83,4 @@ button:active {
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
-}
-
-h1 {
-  text-align: center;
 }
