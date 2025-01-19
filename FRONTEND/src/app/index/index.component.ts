@@ -14,9 +14,7 @@ export class IndexComponent implements OnInit {
   showDeletedAccountMessage : boolean = false;
   accountDeletedMessage: string | null = null;
 
-  constructor(private messageService: MessageService) {
-
-  }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.accountDeletedMessage = this.messageService.getMessage();
@@ -24,6 +22,4 @@ export class IndexComponent implements OnInit {
       this.showDeletedAccountMessage = true;
     }
   }
-
-
 }
