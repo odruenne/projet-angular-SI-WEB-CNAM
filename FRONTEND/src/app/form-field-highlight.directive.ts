@@ -11,7 +11,7 @@ export class FormFieldHighlightDirective implements OnInit {
 
   ngOnInit(): void {
     this.ngControl.control?.statusChanges.subscribe( (status) => {
-        this.updateFieldState(status);
+      this.updateFieldState(status);
     })
   }
 

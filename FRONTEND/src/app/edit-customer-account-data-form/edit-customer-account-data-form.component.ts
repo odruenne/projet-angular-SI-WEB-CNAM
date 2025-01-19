@@ -6,18 +6,21 @@ import { Router, RouterLink } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MessageService } from '../services/message.service';
 import { UpdateUserDTO } from '../models/UpdateUserDTO';
+import { CommonModule } from '@angular/common';
+import { FormFieldHighlightDirective } from '../form-field-highlight.directive';
 
 @Component({
   selector: 'app-edit-customer-account-data-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, FormFieldHighlightDirective],
   providers: [JwtHelperService],
   templateUrl: './edit-customer-account-data-form.component.html',
   styleUrls: ['./edit-customer-account-data-form.component.css'],
 })
 export class EditCustomerAccountDataFormComponent implements OnInit {
   updateAccountDataForm: FormGroup;
-
+  dataUpdated: boolean = false;
+  dataUpdatedMessage: string = "Vos données ont été modifées !";
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -29,7 +32,7 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
       firstName: ['', [Validators.required]],
       mailAddress: ['', [Validators.required, Validators.email]],
       postalAddress: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
+      zipCode: ['', [Validators.required, Validators.pattern(/^\d{1,5}$/)]],
       city: ['', [Validators.required]],
       country: ['', [Validators.required]],
     });
@@ -78,6 +81,9 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
       this.accountService.updateUserData(updatedUserData).subscribe({
         next: (updatedData: UpdateUserDTO) => {
           this.updateAccountDataForm.patchValue(updatedData);
+          this.dataUpdated = true;
+          this.router.navigate(["/account-profile"]);
+
         },
         error: (error) => {
           console.error('Erreur lors de la mise à jour :', error);

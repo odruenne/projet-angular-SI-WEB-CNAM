@@ -1,4 +1,5 @@
 <button routerLink="/account" id="back">Retourner aux options</button>
+<h2 *ngIf="dataUpdated">{{dataUpdatedMessage}}</h2>
 <h1>Modifier mes informations personnelles</h1>
 
 <form [formGroup]="updateAccountDataForm" (ngSubmit)="onSubmit($event)">
