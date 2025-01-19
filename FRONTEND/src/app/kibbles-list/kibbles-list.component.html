@@ -6,9 +6,9 @@
                 <p>Prix: {{ kibble.price }} €</p>
                 <p id="taste">Goût : {{ kibble.taste }}</p>
             </div>
-            <div id="right" *ngIf="kibble.approvedByTokyo">
-                <img src="../../assets/img/approved.png" id="toto">
-                <p id="toto-text">Approuvée par Tokyo</p>
+            <div *ngIf="kibble.approvedByTokyo">
+                <img src="../../assets/img/approved.png" id="approvedByTokyoImage">
+                <p id="approvedByTokyoText">Approuvée par Tokyo</p>
             </div>
         </div>
         <img src="{{kibble.imageURL}}"/>
