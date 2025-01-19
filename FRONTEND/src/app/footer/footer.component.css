@@ -1,8 +1,8 @@
 footer {
     background: linear-gradient(90deg, #000 31.49%, #323131 100%);
     margin: 0;
-    padding: 10;
-    height: 130px;
+    padding: 10px;
+    height: 20px;
     width: 100%;
     display: flex;
 	flex-direction: column;
@@ -17,24 +17,5 @@ footer {
 h1 {
     color: white;
     font-family: "Roboto", sans-serif;
-}
-
-div {
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
-    width: 100%;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-    font-family: "Roboto", sans-serif;
-}
-
-a:hover {
-    color: #6D2BF8;
+    font-size: 18px;
 }

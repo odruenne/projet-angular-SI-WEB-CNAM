@@ -9,11 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  projects: any[] = [
-    {name: 'Mon site web', link:'https://oceanedruenne.github.io/'},
-    {name: 'Étude sur la fibromyalgie', link:'https://oceanedruenne.github.io/etudeFibromyalgie/'},
-    {name: 'Maquette pour une orthophoniste à Obernai ', link:'https://oceanedruenne.github.io/orthophonisteobernai/'},
-    {name: 'Site pour une coach en communication', link:'https://oceanedruenne.github.io/coachstrasbourg/'},
-    {name: 'TP réalisé avec HTML/CSS', link:'https://oceanedruenne.github.io/tp_numero_deux_serfa_od/'}
-  ]
+ title: string = "La boutique de Tokyo";
 }
