@@ -12,12 +12,12 @@ import { FormsModule } from '@angular/forms';
 export class SearchEngineComponent {
 
   taste: string = "";
-  maxPricePerKilo: number = Infinity;
+  maxPrice: number = Infinity;
 
   constructor(private kibblesService: KibblesService) {
   }
 
   onFilterChange() {
-    this.kibblesService.getKibbles(this.taste, this.maxPricePerKilo);
+    this.kibblesService.getKibbles(this.taste, this.maxPrice);
   }
 }
