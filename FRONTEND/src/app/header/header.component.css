@@ -15,23 +15,12 @@
 	align-content: stretch;
 }
 
-
 h1 {
     margin: 0;
     padding: 0;
     color: white;
     text-align: center;
     font-family: "Roboto", sans-serif;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-}
-
-a:hover {
-    cursor: pointer;
-    font-weight: bold;
 }
 
 #links {
@@ -43,4 +32,14 @@ a:hover {
 	align-content: stretch;
     width: 45%;
     padding-top: 1%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+    font-weight: bold;
 }

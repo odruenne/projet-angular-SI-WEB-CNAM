@@ -14,7 +14,6 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   title: string = 'La boutique de Tokyo'
-  authentificated: boolean = true; // à remove par la suite, c'est pout tester
   private store = inject(Store);
   nbOfItems: Observable<number> = this.store.select(ShoppingCartState.getNbOfItems);
 }
