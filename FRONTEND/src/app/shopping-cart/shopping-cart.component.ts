@@ -5,6 +5,7 @@ import { ShoppingCartState } from '../../store/states/shoppingCart-model';
 import { Observable } from 'rxjs';
 import { DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart } from '../../store/actions/shoppingCart-action';
 import { KibblesDTO } from '../models/KibblesDTO';
+import { KibblesService } from '../services/kibbles.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -17,8 +18,20 @@ export class ShoppingCartComponent {
   private store = inject(Store);
   items$: Observable<KibblesDTO[]> = this.store.select(ShoppingCartState.getItemsFromShoppingCart);
 
+
+  constructor(private kibblesService: KibblesService) {}
+
   incrementQuantity(kibble: KibblesDTO) {
-    this.store.dispatch(new IncrementQuantityFromShoppingCart(kibble));
+    this.kibblesService.getKibblesByID(kibble.id).subscribe({
+      next: (fullDetails) => {
+        if (kibble.quantity < fullDetails.quantity) {
+          this.store.dispatch(new IncrementQuantityFromShoppingCart(kibble));
+        }
+      },
+      error: (err) => {
+        console.error("Error : ", err);
+      }
+    });
   }
 
   decrementQuantity(kibble: KibblesDTO) {
