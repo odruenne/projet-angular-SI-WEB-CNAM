@@ -1,20 +1,20 @@
 <div id="main-div">
-    <div *ngFor="let kibble of kibbles" id="kibbles" (click)="goToDetails(kibble.id)">
-        <div [ngClass]="approvedByTokyo ? 'kibbles-header' : ''">
+    <div *ngFor="let kibble of kibbles" id="kibbles">
+        <div [ngClass]="kibble.approvedByTokyo ? 'kibbles-header' : ''">
             <div id="left">
                 <h1>{{ kibble.name }}</h1>
-                <p>Prix: {{ kibble.pricePerKilo }} €</p>
+                <p>Prix: {{ kibble.price }} €</p>
                 <p id="taste">Goût : {{ kibble.taste }}</p>
             </div>
-            <div id="right" *ngIf="approvedByTokyo">
+            <div id="right" *ngIf="kibble.approvedByTokyo">
                 <img src="../../assets/img/approved.png" id="toto">
                 <p id="toto-text">Approuvée par Tokyo</p>
             </div>
         </div>
         <img src="{{kibble.imageURL}}"/>
         <div id="buttons">
-            <a id="more">En savoir plus</a>
-            <button (click)="addItemToCart(kibble)" id="add-cart">Ajouter au panier</button>
+            <a (click)="goToDetails(kibble.id)" id="more">En savoir plus</a>
+            <button (click)="addItemToCart(kibble); $event.stopPropagation()" id="add-cart">Ajouter au panier</button>
         </div>
     </div>
 </div>

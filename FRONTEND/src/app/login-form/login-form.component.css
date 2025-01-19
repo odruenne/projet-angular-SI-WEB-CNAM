@@ -84,3 +84,9 @@ button:active {
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
 }
+
+#welcome-message {
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 25px;
+}

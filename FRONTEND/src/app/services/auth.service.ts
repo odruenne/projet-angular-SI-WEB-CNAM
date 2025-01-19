@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../environments/environment'
 import { LoginDTO } from '../models/LoginDTO';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { RegisterDTO } from '../models/RegisterDTO';
 
 
 /* AuthService est un service dans le front qui va gérer tout ce qui est en lien avec la connexion */
@@ -14,7 +14,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 export class AuthService {
  
-  constructor(private httpClient: HttpClient, private router: Router, private jwtService : JwtHelperService) { }
+  constructor(private httpClient: HttpClient, private jwtService : JwtHelperService) { }
+
+  public register(registerDTO: RegisterDTO) : Observable<string> {
+    return this.httpClient.post(
+      environment.backendURL + "/register-user",
+      registerDTO,
+      {responseType: 'text'}
+    )
+  }
+
 
   public login(loginDTO: LoginDTO) : Observable<string> {
     return this.httpClient.post(
@@ -47,6 +56,17 @@ export class AuthService {
       return decodedToken?.login || '';
     } else {
       return ''; 
+    }
+  }
+
+  public getIDFromLoggedInUser(): number {
+    const token = this.getTokenFromLocalStorage();
+
+    if (token) {
+      const decodedToken = this.jwtService.decodeToken(token);
+      return decodedToken?.id || '';
+    } else {
+      return 0;
     }
   }
   

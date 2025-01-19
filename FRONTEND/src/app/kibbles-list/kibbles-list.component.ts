@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { KibblesService } from '../services/kibbles.service';
-import { Kibbles } from '../../store/models/kibbles';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
 import { Router, RouterModule } from '@angular/router';
+import { KibblesDTO } from '../models/KibblesDTO';
 
 @Component({
   selector: 'app-list',
@@ -15,7 +15,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class KibblesList implements OnInit {
   approvedByTokyo: boolean = true;
-  kibbles: Kibbles[];
+  kibbles: KibblesDTO[];
 
   constructor(private kibblesService : KibblesService, private store: Store, private router: Router) { }
 
@@ -32,7 +32,7 @@ export class KibblesList implements OnInit {
     this.router.navigate([`/details-kibbles/${id}`]);
   }
 
-  addItemToCart(kibble: Kibbles) {
+  addItemToCart(kibble: KibblesDTO) {
     this.store.dispatch(new AddItemToShoppingCart(kibble));
   }
 }

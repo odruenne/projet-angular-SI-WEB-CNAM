@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  login String
+  password String
+  lastName String 
+  firstName String 
+  mailAddress String 
+  postalAddress String 
+  zipCode String 
+  city String 
+  country String
+}
+
+model Kibble {
+  id Int @id @default(autoincrement())
+  name String 
+  price Float
+  taste String 
+  imageURL String 
+  approvedByTokyo Boolean
+  tokyoOpinion String?
+  humidity Int 
+  calcium Int 
+  rawAshes Int 
+  rawProteins Int 
+  rawFat Int 
+  rawFibers Int
+  description String?
+  quantity Int?
+}

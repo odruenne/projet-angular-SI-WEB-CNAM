@@ -10,7 +10,6 @@ import { Request } from 'express';
 import { jwtConstants } from './constants';
 import { IS_PUBLIC_KEY } from './decorators/public.decorator';
   
-  // CanActivate -> Interface qu'une classe peut implémenter pour être un guard décidant si une route peut être activée.
   @Injectable()
   export class AuthGuard implements CanActivate {
     constructor(

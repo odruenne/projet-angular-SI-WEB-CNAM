@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreditCardFormFieldHighlightDirective } from '../credit-card-form-field-highlight.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-account-wallet',
   standalone: true,
-  imports: [ReactiveFormsModule, CreditCardFormFieldHighlightDirective],
+  imports: [ReactiveFormsModule, CreditCardFormFieldHighlightDirective, RouterLink],
   templateUrl: './account-wallet.component.html',
   styleUrl: './account-wallet.component.css'
 })

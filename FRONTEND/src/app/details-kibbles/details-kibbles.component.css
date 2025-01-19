@@ -39,6 +39,7 @@
 
 #menu p {
     color: #AEAEAE;
+    cursor: pointer;
 }
 
 #valeurs-menu {

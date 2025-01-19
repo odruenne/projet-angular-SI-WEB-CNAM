@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { ShoppingCartState } from '../../store/states/shoppingCart-model';
-import { Kibbles } from '../../store/models/kibbles';
 import { Observable } from 'rxjs';
 import { DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart } from '../../store/actions/shoppingCart-action';
+import { KibblesDTO } from '../models/KibblesDTO';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,13 +15,13 @@ import { DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart } 
 }) 
 export class ShoppingCartComponent {
   private store = inject(Store);
-  items$: Observable<Kibbles[]> = this.store.select(ShoppingCartState.getItemsFromShoppingCart);
+  items$: Observable<KibblesDTO[]> = this.store.select(ShoppingCartState.getItemsFromShoppingCart);
 
-  incrementQuantity(kibble: Kibbles) {
+  incrementQuantity(kibble: KibblesDTO) {
     this.store.dispatch(new IncrementQuantityFromShoppingCart(kibble));
   }
 
-  decrementQuantity(kibble: Kibbles) {
+  decrementQuantity(kibble: KibblesDTO) {
     this.store.dispatch(new DecrementQuantityFromShoppingCart(kibble));
   }
 }

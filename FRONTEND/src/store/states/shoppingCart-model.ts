@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Kibbles } from '../models/kibbles';
 import { AddItemToShoppingCart, DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart, RemoveItemFromShoppingCart } from '../actions/shoppingCart-action';
 import { ShoppingCart } from '../models/shoppingCart';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import { patch, updateItem } from '@ngxs/store/operators';
+import { KibblesDTO } from '../../app/models/KibblesDTO';
 
 
 
@@ -17,7 +17,7 @@ import { patch, updateItem } from '@ngxs/store/operators';
 @Injectable()
 export class ShoppingCartState {
     @Selector()
-    static getItemsFromShoppingCart(state: ShoppingCart) : Kibbles[] {
+    static getItemsFromShoppingCart(state: ShoppingCart) : KibblesDTO[] {
       return state.kibbles;
     }
     @Selector()
@@ -79,7 +79,7 @@ export class ShoppingCartState {
     ) {
 
       const state = stateCtx.getState();
-      const kibble = state.kibbles.find(kibble => kibble.name === item.name);
+      const kibble = state.kibbles.find(kibble => kibble.name === kibble.name);
 
       if (kibble?.quantity === 1) {
         this.del(stateCtx,{item: kibble});

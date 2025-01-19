@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDTO } from '../models/LoginDTO';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,16 +15,23 @@ import { CommonModule } from '@angular/common';
 })
 
 
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
   connectionForm: FormGroup;
   showErrorMessage : boolean = false;
+  welcomeMessage: string | null = null;
   
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private messageService : MessageService) {
     this.connectionForm = this.formBuilder.group({
       login: ['',[Validators.required]],
       password: ['',[Validators.required]]
     });
 
+  }
+  ngOnInit(): void {
+    this.welcomeMessage = this.messageService.getMessage();
+    if (this.welcomeMessage != null) {
+      this.showErrorMessage = true;
+    }
   }
 
   onSubmit(event: Event) : void {
@@ -37,8 +45,8 @@ export class LoginFormComponent {
 
       this.authService.login(loginDTO).subscribe(
       {
-        complete: () => this.router.navigate(['/catalog']),
-        error: err => {
+        next: () => this.router.navigate(['/catalog']),
+        error: _ => {
           this.showErrorMessage = true;
           this.connectionForm.reset();
         }

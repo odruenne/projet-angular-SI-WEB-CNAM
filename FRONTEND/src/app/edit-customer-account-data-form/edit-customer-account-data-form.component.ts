@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { UserDTO } from '../models/UserDTO';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthService } from '../services/auth.service';
+import { MessageService } from '../services/message.service';
+import { UpdateUserDTO } from '../models/UpdateUserDTO';
 
 @Component({
   selector: 'app-edit-customer-account-data-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   providers: [JwtHelperService],
   templateUrl: './edit-customer-account-data-form.component.html',
   styleUrls: ['./edit-customer-account-data-form.component.css'],
@@ -21,7 +22,7 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private router: Router,
-    private authService: AuthService
+    private messageService: MessageService
   ) {
     this.updateAccountDataForm = this.formBuilder.group({
       lastName: ['', [Validators.required]],
@@ -35,13 +36,7 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      this.updateAccountDataForm.patchValue(userData);
-    } else {
-      this.getData();
-    }
+   this.getData();
   }
 
   getData(): void {
@@ -68,19 +63,39 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   }
   
   onSubmit(event: Event): void {
-    
     event.preventDefault();
     if (this.updateAccountDataForm.valid) {
-      const updatedUserData: UserDTO = this.updateAccountDataForm.value;
+      const updatedUserData = {
+        lastName: this.updateAccountDataForm.value.lastName,
+        firstName: this.updateAccountDataForm.value.firstName,
+        mailAddress: this.updateAccountDataForm.value.mailAddress,
+        postalAddress: this.updateAccountDataForm.value.postalAddress,
+        zipCode: this.updateAccountDataForm.value.zipCode,
+        city: this.updateAccountDataForm.value.city,
+        country: this.updateAccountDataForm.value.country,
+      };
+    
       this.accountService.updateUserData(updatedUserData).subscribe({
-        next: (updatedData: UserDTO) => {
-          localStorage.setItem('userData', JSON.stringify(updatedData));
-          this.updateAccountDataForm.patchValue(updatedData); 
+        next: (updatedData: UpdateUserDTO) => {
+          this.updateAccountDataForm.patchValue(updatedData);
         },
         error: (error) => {
-          console.error('Error :', error);
+          console.error('Erreur lors de la mise à jour :', error);
         },
       });
     }
+  }
+
+  onDeleteAccount() : void {
+    this.accountService.deleteUserAccount().subscribe({
+      next: () => {
+        this.messageService.setMessage(
+          `Votre compte a bien été supprimé ! Nous espérons vous revoir bientôt sur notre site !`
+        );
+        this.router.navigate(['/**']);
+      },
+      error: (err) => console.log('error : ', err),
+    });
+
   }
 }

@@ -1,3 +1,4 @@
+<button routerLink="/account" id="back">Retourner aux options</button>
 <h1>Modifier mes informations personnelles</h1>
 
 <form [formGroup]="updateAccountDataForm" (ngSubmit)="onSubmit($event)">
@@ -24,6 +25,6 @@
 
     <div id="buttons">
         <button id="edit-data" type="submit">Mettre à jour mes informations personnelles</button>
-        <button id="delete-account">Supprimer mon compte</button>
+        <button (click)="onDeleteAccount()" id="delete-account">Supprimer mon compte</button>
     </div>
 </form>

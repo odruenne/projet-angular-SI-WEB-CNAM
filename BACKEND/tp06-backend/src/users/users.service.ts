@@ -1,58 +1,87 @@
+
 import { Injectable } from '@nestjs/common';
-import { User } from './interfaces/user.interface';
+import { User, Prisma } from '@prisma/client';
+import { User as UserInterface } from './interfaces/user.interface'
+import * as bcrypt from 'bcryptjs';
+import { PrismaService } from 'src/prisma.service';
 
-import * as usersData from './data/users.json'
-import * as usersDTO from './data/usersDTO.json'
-import { UserDTO } from './interfaces/userDTO.interface';
-
-import * as fs from 'fs';
 
 @Injectable()
 export class UsersService {
-    private readonly users: User[] = [];
-    private readonly usersDataDTO: UserDTO[] = [];
+  constructor(private prisma: PrismaService) {}
 
-    constructor() {
-        this.users = usersData as User[];
-        this.usersDataDTO = usersDTO as UserDTO[];
-    }
+  async hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 10);
+  }
 
-    async findOne(login: string): Promise<User | undefined> {
-        return this.users.find(user => user.login === login);
-    }
+  async user(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: userWhereUniqueInput,
+    });
+  }
 
-    async getDataFromUser(login: string) : Promise<UserDTO | undefined> {
-        return this.users.find(user => user.login === login);
-    }
+  async users(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.UserWhereUniqueInput;
+    where?: Prisma.UserWhereInput;
+    orderBy?: Prisma.UserOrderByWithRelationInput;
+  }): Promise<User[]> {
+    const { skip, take, cursor, where, orderBy } = params;
+    return this.prisma.user.findMany({
+      skip,
+      take,
+      cursor,
+      where,
+      orderBy,
+    });
+  }
 
-    async updateUser(
-        lastName: string,
-        firstName: string,
-        mailAddress: string,
-        postalAddress: string,
-        zipCode: string,
-        city: string,
-        country: string,
-        login: string
-      ): Promise<UserDTO> {
-        const userIndex = this.usersDataDTO.findIndex(user => user.login === login);
-      
-        this.usersDataDTO[userIndex] = {
-          ...this.usersDataDTO[userIndex],
-          lastName,
-          firstName,
-          mailAddress,
-          postalAddress,
-          zipCode,
-          city,
-          country,
-        };
-      
-        try {
-          fs.writeFileSync('./src/users/data/usersDTO.json', JSON.stringify(this.usersDataDTO, null, 2), 'utf8');
-          return this.usersDataDTO[userIndex]; 
-        } catch (error) {
-          throw new Error(`Error: ${error.message}`);
-        }
-      }
+  async createUser(data: UserInterface) {
+    const hashedPassword = await this.hashPassword(data.password);
+    return this.prisma.user.create({
+      data: {
+        login: data.login,
+        password: hashedPassword,
+        lastName: data.lastName,
+        firstName: data.firstName,
+        mailAddress: data.mailAddress,
+        postalAddress: data.postalAddress,
+        zipCode: data.zipCode,
+        city: data.city,
+        country: data.country,
+      },
+    });
+  }
+
+  async updateUser(params: {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUpdateInput;
+  }): Promise<User> {
+    const { where, data } = params;
+    return this.prisma.user.update({
+      data,
+      where,
+    });
+  }
+
+  async updatePasswordUser(params: {
+    where: Prisma.UserWhereUniqueInput;
+    data: { password: string };
+  }): Promise<User> {
+    const { where, data } = params;
+    
+    return this.prisma.user.update({
+      data,
+      where,
+    });
+  }
+  
+  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+    return this.prisma.user.delete({
+      where,
+    });
+  }
 }

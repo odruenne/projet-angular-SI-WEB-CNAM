@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
-// HTTPInterceptor -> Outil qui permet de traiter les requêtes et les réponses HTTP avant qu'elles ne soient envoyées ou reçues par le serveur.
 @Injectable() 
 export class JwtInterceptor implements HttpInterceptor {
 
