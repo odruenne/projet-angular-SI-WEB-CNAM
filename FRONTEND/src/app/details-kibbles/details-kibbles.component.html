@@ -1,5 +1,5 @@
 <div id="main-div">
-    <div id="left">
+    <div>
         <img src="{{kibbles.imageURL}}"/>
     </div>
     <div id="right">
@@ -16,9 +16,9 @@
         <div id="description" *ngIf="showDescription">
             <p>{{kibbles.description}}</p>
             <p id="taste">Goût : {{kibbles.taste}}</p>
-            <div id="toto-avis" *ngIf="approvedByTokyo">
-                <img src="../../assets/img/approved.png" id="toto">
-                <p id="toto-text">Avis de Tokyo : {{kibbles.tokyoOpinion}}</p>
+            <div id="tokyoOpinion" *ngIf="approvedByTokyo">
+                <img src="../../assets/img/approved.png" id="approvedByTokyoImage">
+                <p id="approvedByTokyoText">Avis de Tokyo : {{kibbles.tokyoOpinion}}</p>
             </div>
         </div>
         <div id="valeurs-nutritionnelles" *ngIf="showNutrition">
@@ -49,12 +49,12 @@
         </div>
         <div id="choice">
             <div class="wrapper">
-                <span class="minus">-</span>
-                <span class="num"> 1 </span>
-                <span class="plus">+</span>
+              <span class="minus" (click)="decreaseQuantity()">-</span>
+              <span class="num">{{ selectedQuantity }}</span>
+              <span class="plus" (click)="increaseQuantity()">+</span>
             </div>
-            <p id="price">{{kibbles.price}}€</p>
+            <p id="price">{{ totalPrice }}€</p>
         </div>
-        <button id="add-cart">Ajouter au panier</button>
+        <button id="add-cart" (click)="addItemToCart()">Ajouter au panier</button>
     </div>
 </div>
