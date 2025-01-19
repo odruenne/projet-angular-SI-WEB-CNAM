@@ -1,11 +1,11 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
-import { FormControl, FormControlStatus, NgControl, Validators } from '@angular/forms';
+import { Directive, ElementRef,OnInit, Renderer2 } from '@angular/core';
+import { FormControlStatus, NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appFormFieldHighlight]',
   standalone: true
 })
-export class CreditCardFormFieldHighlightDirective implements OnInit {
+export class FormFieldHighlightDirective implements OnInit {
 
   constructor(private ngControl : NgControl, private renderer: Renderer2, private el: ElementRef) {}
 

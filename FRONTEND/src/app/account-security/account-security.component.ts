@@ -5,11 +5,14 @@ import { UserDTO } from '../models/UserDTO';
 import { UpdatePasswordDTO } from '../models/UpdatePasswordDTO';
 import { MessageService } from '../services/message.service';
 import { Router, RouterLink } from '@angular/router';
+import { confirmPasswordValidator } from './confirm-password.validator';
+import { CommonModule } from '@angular/common';
+import { FormFieldHighlightDirective } from '../form-field-highlight.directive';
 
 @Component({
   selector: 'app-account-security',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, FormFieldHighlightDirective],
   templateUrl: './account-security.component.html',
   styleUrl: './account-security.component.css'
 })
@@ -30,27 +33,15 @@ export class AccountSecurityComponent {
             )
           ]
         ],
-        confirmNewPassword: ['', [Validators.required]],
+        confirmNewPassword: ['', [Validators.required, Validators.minLength(12),Validators.pattern('^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\\d!@#$%^&*(),.?":{}|<>]{12,}$')]],
       },
-      // { validators: this.matchPasswords('newPassword', 'confirmNewPassword') }
+      { validators: confirmPasswordValidator }
     );
   }
 
-  // matchPasswords(passwordKey: string, confirmPasswordKey: string) {
-  //   return (group: AbstractControl): ValidationErrors | null => {
-  //     const password = group.get(passwordKey)?.value;
-  //     const confirmPassword = group.get(confirmPasswordKey)?.value;
-
-  //     if (password !== confirmPassword) {
-  //       return { passwordsNotMatching: true };
-  //     }
-
-  //     return null;
-  //   };
-  // }
-
   onSubmit(event: Event): void {
     event.preventDefault();
+    console.log("Formulaire valide ? ", this.editPasswordForm.valid);
     if (this.editPasswordForm.valid) {
       const updatedPasswordUser: UpdatePasswordDTO = {
         password: this.editPasswordForm.value.newPassword,

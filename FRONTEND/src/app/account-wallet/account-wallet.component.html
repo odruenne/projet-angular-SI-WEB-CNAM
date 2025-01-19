@@ -1,52 +1,14 @@
 <button routerLink="/account" id="back">Retourner aux options</button>
 <div id="main-div">
-    <div id="payment-methods">
-        <h1>Mes moyens de paiement</h1>
-        <div id="valid-payment-methods">
-            <p class="info">Cartes bancaires en cours de validité</p>
-            <div id="creditCardData">
-                <div id="credit-card-img">
-                    <img src="../../assets/img/valid-credit-card.png">
-                </div>
-                <div id="data">
-                    <p>Carte n°index : **** - **** - **** - **09</p>
-                    <p>Ajoutée le : XX/XX/XXXX</p>
-                    <button id="delete-credit-card">SUPPRIMER</button>
-                </div>
-            </div>
-            <div id="creditCardData">
-                <div id="credit-card-img">
-                    <img src="../../assets/img/valid-credit-card.png">
-                </div>
-                <div id="data">
-                    <p>Carte n°index : **** - **** - **** - **09</p>
-                    <p>Ajoutée le : XX/XX/XXXX</p>
-                    <button id="delete-credit-card">SUPPRIMER</button>
-                </div>
-            </div>
-        </div>
-        <div id="expired-payment-methods">
-            <p class="info">Cartes bancaires périmées</p>
-            <div id="expiredCreditCardData">
-                <div id="credit-card-img">
-                    <img src="../../assets/img/expired-credit-card.png">
-                </div>
-                <div id="data">
-                    <p>Carte n°index : **** - **** - **** - **09</p>
-                    <p>Ajoutée le : XX/XX/XXXX</p>
-                    <button id="delete-credit-card">SUPPRIMER</button>
-                </div>
-            </div>
-            <div id="expiredCreditCardData">
-                <div id="credit-card-img">
-                    <img src="../../assets/img/expired-credit-card.png">
-                </div>
-                <div id="data">
-                    <p>Carte n°index : **** - **** - **** - **09</p>
-                    <p>Ajoutée le : XX/XX/XXXX</p>
-                    <button id="delete-credit-card">SUPPRIMER</button>
-                </div>
-            </div>
+    <div id="display-cards">
+        <div *ngFor="let creditCard of creditCards(); index as i" id="creditCardData">
+            <h1>Mes cartes bancaires</h1>
+            <img src="../../assets/img/credit-card.png"/>
+            <p><strong>Primary Account Number (PAN) : </strong>{{creditCard.primaryAccountNumber | transformToAsterisk }}</p>
+            <p><strong>Name of the owner : </strong>{{creditCard.name}}</p>
+            <p><strong>Expiration date (MM/YYYY) : </strong>{{creditCard.expirationDate}}</p>
+            <p><strong>Card Validation Code (CVC) : </strong>{{creditCard.cardValidationCode}}</p>
+            <button (click)="onDeleteCreditCard(i)" id="delete-credit-card">Delete this credit card</button>
         </div>
     </div>
     <div id="add-credit-card">
