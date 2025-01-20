@@ -44,9 +44,6 @@ label {
     color: #333;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
 input[type="password"] {
     width: calc(100% - 22px);
     padding: 10px;

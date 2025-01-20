@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { User } from '@prisma/client';
 import { User as UserInterface } from './interfaces/user.interface'
 import { UsersService } from "./users.service";
@@ -43,16 +43,31 @@ export class UsersController {
 
     @Put('update-user-password/:id')
     async updateUserPassword(
-        @Param('id') id: string,
-        @Body() updatePasswordDTO: UpdatePasswordDTO
+      @Param('id') id: string,
+      @Body() updatePasswordDTO: UpdatePasswordDTO
     ): Promise<User> {
-        const hashedPassword = await this.usersService.hashPassword(updatePasswordDTO.password);
+      const user = await this.usersService.findUserById(Number(id));
     
-        return this.usersService.updatePasswordUser({
-            where: { id: Number(id) },
-            data: { password: hashedPassword },
-        });
+      if (!user) {
+        throw new NotFoundException('Utilisateur non trouvé');
+      }
+    
+      const isPasswordValid = await this.usersService.comparePasswords(updatePasswordDTO.password, user.password);
+      if (!isPasswordValid) {
+        throw new BadRequestException('Le mot de passe actuel est incorrect.');
+      }
+    
+      if (updatePasswordDTO.password === updatePasswordDTO.password) {
+        throw new BadRequestException('Le nouveau mot de passe ne peut pas être identique à l’ancien.');
+      }
+    
+      const hashedPassword = await this.usersService.hashPassword(updatePasswordDTO.password);
+      return this.usersService.updatePasswordUser({
+        where: { id: Number(id) },
+        data: { password: hashedPassword },
+      });
     }
+    
 
     @Delete('delete-user/:id')
     async deleteUserAccount(@Param('id') id: string): Promise<User> {

@@ -4,12 +4,23 @@
 <form [formGroup]="editPasswordForm" (ngSubmit)="onSubmit($event)">
     <label for="currentPassword">Mot de passe actuel</label>
     <input type="password" id="currentPassword" name="currentPassword" formControlName="currentPassword" appFormFieldHighlight>
-
+    <div *ngIf="editPasswordForm.get('currentPassword')?.touched && editPasswordForm.get('currentPassword')?.invalid">
+      <span *ngIf="editPasswordForm.get('currentPassword')?.hasError('required')">Le mot de passe actuel est requis.</span>
+    </div>
+    
     <label for="newPassword">Nouveau mot de passe</label>
     <input type="password" id="newPassword" name="newPassword" formControlName="newPassword" appFormFieldHighlight>
-
+    <div *ngIf="editPasswordForm.get('newPassword')?.touched && editPasswordForm.get('newPassword')?.invalid">
+      <span *ngIf="editPasswordForm.get('newPassword')?.hasError('required')">Le nouveau mot de passe est requis.</span>
+      <span *ngIf="editPasswordForm.get('newPassword')?.hasError('minlength')">Le mot de passe doit contenir au moins 12 caractères.</span>
+      <span *ngIf="editPasswordForm.get('newPassword')?.hasError('pattern')">Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial.</span>
+    </div>
+    
     <label for="confirmNewPassword">Confirmez le nouveau mot de passe</label>
     <input type="password" id="confirmNewPassword" name="confirmNewPassword" formControlName="confirmNewPassword" appFormFieldHighlight>
-
+    <div *ngIf="editPasswordForm.get('confirmNewPassword')?.touched && editPasswordForm.hasError('passwordsMismatch')">
+      <span>Les mots de passe ne correspondent pas.</span>
+    </div>
+    
     <button id="edit-password" type="submit">Mettre à jour mon mot de passe</button>
 </form>

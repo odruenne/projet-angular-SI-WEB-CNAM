@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AccountService } from '../services/account.service';
-import { UserDTO } from '../models/UserDTO';
 import { UpdatePasswordDTO } from '../models/UpdatePasswordDTO';
 import { MessageService } from '../services/message.service';
 import { Router, RouterLink } from '@angular/router';
@@ -35,30 +34,43 @@ export class AccountSecurityComponent {
         ],
         confirmNewPassword: ['', [Validators.required, Validators.minLength(12),Validators.pattern('^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\\d!@#$%^&*(),.?":{}|<>]{12,}$')]],
       },
-      { validators: confirmPasswordValidator }
+      { validators: [confirmPasswordValidator, this.newPasswordCannotMatchCurrentPassword] }
     );
   }
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    console.log("Formulaire valide ? ", this.editPasswordForm.valid);
+  
     if (this.editPasswordForm.valid) {
       const updatedPasswordUser: UpdatePasswordDTO = {
+        currentPassword: this.editPasswordForm.value.currentPassword, 
         password: this.editPasswordForm.value.newPassword,
       };
-      
-
+  
       this.accountService.updateUserPassword(updatedPasswordUser).subscribe({
-        next: (updatedUser: UserDTO) => {
-          this.messageService.setMessage(
-            `Votre mot de passe a bien été modifié ! `
-          );
+        next: () => {
+          this.messageService.setMessage('Votre mot de passe a bien été modifié !');
           this.router.navigate(['/account-security']);
         },
         error: (error) => {
-          console.error('Erreur lors du changement du mot de passe : ', error);
+          if (error.status === 400) {
+            this.messageService.setMessage(error.error.message);
+          } else {
+            console.error('Erreur serveur : ', error);
+          }
         },
       });
     }
+  }
+  
+
+  newPasswordCannotMatchCurrentPassword(control: AbstractControl): ValidationErrors | null {
+    const currentPassword = control.get('currentPassword')?.value;
+    const newPassword = control.get('newPassword')?.value;
+  
+    if (currentPassword && newPassword && currentPassword === newPassword) {
+      return { samePassword: true };
+    }
+    return null;
   }
 }

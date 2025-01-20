@@ -1,3 +1,4 @@
-export interface UpdatePasswordDTO {
-    password: string;
+export class UpdatePasswordDTO {
+    currentPassword: string; 
+    password: string;        
 }
