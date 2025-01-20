@@ -3,11 +3,16 @@
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
-form 
-{
+#error-message {
+  color: #D70000;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+form {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -20,8 +25,7 @@ form
   margin-top: 5%;
 }
 
-label 
-{
+label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
@@ -30,9 +34,7 @@ label
 
 input[type="text"],
 input[type="email"],
-input[type="tel"],
-input[type="password"]
-{
+input[type="password"] {
   width: calc(100% - 22px);
   padding: 10px;
   margin-bottom: 20px;
@@ -42,30 +44,30 @@ input[type="password"]
 }
 
 button {
-    align-items: center;
-    background-color: #FFFFFF;
-    border: 1px solid #6D2BF8;
-    border-radius: .25rem;
-    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-    box-sizing: border-box;
-    color: #6D2BF8;
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 16px;
-    font-weight: 600;
-    justify-content: center;
-    line-height: 1.25;
-    margin: 0;
-    min-height: 3rem;
-    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-    position: relative;
-    text-decoration: none;
-    transition: all 250ms;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: baseline;
-    width: auto;
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #6D2BF8;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #6D2BF8;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
 }
 
 button:hover,

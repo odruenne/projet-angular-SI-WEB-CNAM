@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RegisterDTO } from '../models/RegisterDTO';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/message.service';
+import { confirmPasswordValidator } from '../account-security/confirm-password.validator';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ import { MessageService } from '../services/message.service';
 })
 export class RegisterComponent {
   createAccountForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private messageService : MessageService) {
     this.createAccountForm = this.formBuilder.group(
@@ -22,7 +24,7 @@ export class RegisterComponent {
       firstName: ['', [Validators.required]],
       mailAddress: ['', [Validators.required, Validators.email]],
       postalAddress: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
+      zipCode: ['', [Validators.required,Validators.pattern(/^\d{1,5}$/)]],
       city: ['', [Validators.required]],
       country: ['', [Validators.required]],
       login: ['',[Validators.required]],
@@ -38,25 +40,14 @@ export class RegisterComponent {
       ],
       confirmNewPassword: ['', [Validators.required]],
     },
-    // { validators: this.matchPasswords('newPassword', 'confirmNewPassword') }
+    { validators: confirmPasswordValidator }
     );
-  }
-
-  matchPasswords(passwordKey: string, confirmPasswordKey: string) {
-    return (group: AbstractControl): ValidationErrors | null => {
-      const password = group.get(passwordKey)?.value;
-      const confirmPassword = group.get(confirmPasswordKey)?.value;
-
-      if (password !== confirmPassword) {
-        return { passwordsNotMatching: true };
-      }
-
-      return null;
-    };
   }
 
   onSubmit(event: Event): void {
     event.preventDefault();
+    this.errorMessage = null;
+
     if (this.createAccountForm.valid) {
       const registerDTO : RegisterDTO = {
         login: this.createAccountForm.value.login,
@@ -77,7 +68,13 @@ export class RegisterComponent {
           );
           this.router.navigate(['/login']);
         },
-        error: (err) => console.log('error : ', err),
+        error: (err) => {
+          if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = "Une erreur s'est produite. Veuillez réessayer.";
+          }
+        }
       });
     }
   }

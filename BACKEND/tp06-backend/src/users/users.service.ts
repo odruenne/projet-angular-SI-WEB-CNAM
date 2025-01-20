@@ -40,6 +40,19 @@ export class UsersService {
   }
 
   async createUser(data: UserInterface) {
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { login: data.login },
+          { mailAddress: data.mailAddress }
+        ]
+      }
+    });
+  
+    if (existingUser) {
+      throw new Error(`L'utilisateur avec le login "${data.login}" ou l'adresse email "${data.mailAddress}" existe déjà.`);
+    }
+  
     const hashedPassword = await this.hashPassword(data.password);
     return this.prisma.user.create({
       data: {
@@ -55,7 +68,7 @@ export class UsersService {
       },
     });
   }
-
+  
   async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
