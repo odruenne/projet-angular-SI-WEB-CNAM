@@ -32,8 +32,6 @@ export class LoginFormComponent {
     });
 
     let { title, message } = this.messageService.getMessage();
-    console.log("title : ", title);
-    console.log("msg : ", message);
     if (title === "confirmInscription") {
       this.welcomeMessage = message;
       this.showWelcomeMessage = true;
@@ -42,11 +40,9 @@ export class LoginFormComponent {
   }
 
   onSubmit(event: Event): void {
-    console.log('onSubmit appelé');
     this.errorMessage = null;
     this.welcomeMessage = null;
     event.preventDefault();
-    console.log("valid ? ", this.connectionForm.valid);
   
     if (this.connectionForm.valid) {
       const loginDTO: LoginDTO = {
@@ -54,19 +50,14 @@ export class LoginFormComponent {
         password: this.connectionForm.value.password,
       };
 
-      console.log("loginDTO : ", loginDTO);
   
       this.authService.login(loginDTO).subscribe({
         next: (res) => {
-          console.log("Réponse du serveur : ", res);
           this.router.navigate(['/catalog']);
         },
         error: (err) => {
-          console.log("err : ", err);
           if (err.status === 401) {
-            console.log("MIAOU");
           }
-          console.log("Erreur dans la réponse : ", err);
           let { title, message } = this.messageService.getMessage();
           if (title === "formInvalide") {
             this.errorMessage = message;

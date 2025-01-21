@@ -47,14 +47,15 @@
                 <p>{{kibbles.rawFibers}}%</p>
             </div>
         </div>
+        <p id="outOfStock" *ngIf="isOutOfStock">En rupture de stock</p>
         <div id="choice">
             <div class="wrapper">
-              <span class="minus" (click)="decreaseQuantity()">-</span>
+              <span class="minus" (click)="decreaseQuantity()" [class.disabled]="selectedQuantity <= 1 || isOutOfStock">-</span>
               <span class="num">{{ selectedQuantity }}</span>
-              <span class="plus" (click)="increaseQuantity()">+</span>
+              <span class="plus" (click)="increaseQuantity()" [class.disabled]="isOutOfStock || selectedQuantity >= (kibbles.quantity - quantityInShoppingCart)">+</span>
             </div>
             <p id="price">{{ totalPrice }}€</p>
         </div>
-        <button id="add-cart" (click)="addItemToCart()">Ajouter au panier</button>
+        <button id="add-cart" (click)="addItemToCart()" [disabled]="isOutOfStock">Ajouter au panier</button>
     </div>
 </div>

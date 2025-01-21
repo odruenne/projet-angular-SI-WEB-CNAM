@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { KibblesService } from '../services/kibbles.service';
 import { KibblesDTO } from '../models/KibblesDTO';
 import { Store } from '@ngxs/store';
-import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
+import { AddItemToShoppingCart, IncrementQuantityFromShoppingCart } from '../../store/actions/shoppingCart-action';
+import { Observable } from 'rxjs';
+import { ShoppingCartState } from '../../store/states/shoppingCart-model';
 
 @Component({
   selector: 'app-detail-kibble',
@@ -13,15 +15,22 @@ import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
   templateUrl: './details-kibbles.component.html',
   styleUrl: './details-kibbles.component.css'
 })
-export class DetailsKibblesComponent {
-
+export class DetailsKibblesComponent implements OnInit {
+  private store = inject(Store);
   kibbles: KibblesDTO;
   selectedMenu: 'description' | 'nutrition' = 'description'; 
   kibblesID: number;
   selectedQuantity: number = 1;
   totalPrice: number = 0;
- 
-  constructor(private route: ActivatedRoute, private kibblesService : KibblesService, private store: Store) {}
+  quantityInShoppingCart: number = 0;
+  items$: Observable<KibblesDTO[]> = this.store.select(ShoppingCartState.getItemsFromShoppingCart);
+  itemsStoredInShoppingCart : KibblesDTO[] = [];
+  isOutOfStock: boolean = false;
+
+
+  constructor(private route: ActivatedRoute, private kibblesService : KibblesService) {
+  
+  }
 
   showNutrition: boolean = false;
   showDescription: boolean = true;
@@ -45,27 +54,46 @@ export class DetailsKibblesComponent {
   ngOnInit(): void {
     this.kibblesID = Number(this.route.snapshot.paramMap.get('id'));
     this.getDetailsFromKibbles(this.kibblesID);
-  }
-
-  getDetailsFromKibbles(id: number) : void {
-    this.kibblesService.getKibblesByID(id).subscribe({
-      next: (kibblesData: KibblesDTO) => {
-        this.kibbles = kibblesData;
-        this.approvedByTokyo = kibblesData.approvedByTokyo;
-        this.kibblesInStock = kibblesData.quantity >= 5;
-        this.kibblesSoonOutOfStock = kibblesData.quantity < 5;
-        this.kibblesOutOfStock = kibblesData.quantity === 0;
-        this.updateTotalPrice();
+  
+    this.items$.subscribe((data) => {
+      this.itemsStoredInShoppingCart = data;
+      const existingItem = this.itemsStoredInShoppingCart.find(item => item.id === this.kibblesID);
+  
+      if (existingItem) {
+        this.quantityInShoppingCart = existingItem.quantity;
+      } else {
+        this.quantityInShoppingCart = 0;
       }
     });
   }
+  
 
+  getDetailsFromKibbles(id: number): void {
+    this.kibblesService.getKibblesByID(id).subscribe({
+      next: (kibblesData: KibblesDTO) => {
+        this.kibbles = kibblesData;
+  
+        const existingItem = this.itemsStoredInShoppingCart.find(item => item.id === kibblesData.id);
+        this.quantityInShoppingCart = existingItem ? existingItem.quantity : 0;
+  
+        this.kibblesInStock = kibblesData.quantity > this.quantityInShoppingCart;
+        this.kibblesSoonOutOfStock = kibblesData.quantity - this.quantityInShoppingCart < 5;
+        this.kibblesOutOfStock = kibblesData.quantity - this.quantityInShoppingCart === 0;
+  
+        this.updateTotalPrice();
+      },
+    });
+  }
+  
   increaseQuantity(): void {
-    if (this.selectedQuantity < this.kibbles.quantity) {
+    const maxAvailableQuantity = this.kibbles.quantity - this.quantityInShoppingCart;
+    
+    if (this.selectedQuantity < maxAvailableQuantity) {
       this.selectedQuantity++;
       this.updateTotalPrice();
     }
   }
+  
 
   decreaseQuantity(): void {
     if (this.selectedQuantity > 1) {
@@ -78,16 +106,37 @@ export class DetailsKibblesComponent {
     this.totalPrice = this.selectedQuantity * this.kibbles.price;
   }
 
+
   addItemToCart(): void {
-    // Faudrait que je récupère le contenu du panier
-    // ou alors la quantité de la kibble choisie qui est dans le panier
+      
     if (this.selectedQuantity <= this.kibbles.quantity) {
       const kibbleToAdd = {
         ...this.kibbles,
         quantity: this.selectedQuantity,
         totalPrice: this.totalPrice,
       };
-      this.store.dispatch(new AddItemToShoppingCart(kibbleToAdd));
+  
+      const existingItem = this.itemsStoredInShoppingCart.find(item => item.id === kibbleToAdd.id);
+  
+      if (existingItem) {
+        const totalQuantityInCart = existingItem.quantity + this.selectedQuantity;
+  
+        if (totalQuantityInCart <= this.kibbles.quantity) {
+          this.store.dispatch(new IncrementQuantityFromShoppingCart({ 
+            ...existingItem, 
+            quantity: totalQuantityInCart 
+          }));
+        } else {
+          this.isOutOfStock = true;
+        }
+      } else {
+        this.store.dispatch(new AddItemToShoppingCart(kibbleToAdd));
+      }
+    } else {
+      this.isOutOfStock = true;
     }
   }
+  
+  
+  
 }

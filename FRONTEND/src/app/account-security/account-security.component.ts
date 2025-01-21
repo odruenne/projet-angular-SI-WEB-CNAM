@@ -41,10 +41,6 @@ export class AccountSecurityComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    console.log("est valide ? : ", this.editPasswordForm.valid);
-    console.log("CP : ", this.editPasswordForm.value.currentPassword);
-    console.log("PW : ", this.editPasswordForm.value.newPassword);
-    console.log("CNP : ", this.editPasswordForm.value.confirmNewPassword);
     if (this.editPasswordForm.valid) {
       const updatedPasswordUser: UpdatePasswordDTO = {
         currentPassword: this.editPasswordForm.value.currentPassword, 

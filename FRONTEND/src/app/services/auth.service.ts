@@ -37,7 +37,6 @@ export class AuthService {
           localStorage.setItem(environment.access_token, res);
         },
         error: (err) => {
-          console.log("Erreur dans la réponse : ", err);
           this.messageService.setMessage("formInvalide", 'Login ou mot de passe invalides. Merci de réessayer.');
           return throwError(() => err);
         }

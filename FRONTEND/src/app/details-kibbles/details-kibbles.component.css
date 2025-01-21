@@ -93,6 +93,12 @@
     width: 560px;
 }
 
+#outOfStock {
+    text-align: center;
+    color: #D70000;
+    font-weight: bold;
+}
+
 #choice {
     display: flex;
 	flex-direction: row;

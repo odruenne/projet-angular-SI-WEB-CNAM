@@ -49,7 +49,6 @@ export class RegisterComponent {
     event.preventDefault();
     this.errorMessage = null;
 
-    console.log("Form valide ? : ", this.createAccountForm.valid);
     if (this.createAccountForm.valid) {
       const registerDTO : RegisterDTO = {
         login: this.createAccountForm.value.login,

@@ -32,7 +32,6 @@ export class ShoppingCartState {
       { item } : AddItemToShoppingCart
     ) {
       const state = stateCtx.getState();
-
       const kibble = state.kibbles.find(kibble => kibble.name === item.name);
 
       if(kibble) {
@@ -59,18 +58,19 @@ export class ShoppingCartState {
 
     @Action(IncrementQuantityFromShoppingCart)
     inc(
-      {setState}: StateContext<ShoppingCart>,
-      {item} : IncrementQuantityFromShoppingCart
+      { setState }: StateContext<ShoppingCart>,
+      { item }: IncrementQuantityFromShoppingCart
     ) {
       setState(
         patch({
           kibbles: updateItem(
-            k => k.name === item.name,
-            patch({quantity: item.quantity + 1})
+            k => k.id === item.id,
+            patch({ quantity: item.quantity })
           )
         })
-      )
+      );
     }
+    
     
     @Action(DecrementQuantityFromShoppingCart)
     dec(
@@ -100,6 +100,6 @@ export class ShoppingCartState {
     clearCart(stateCtx: StateContext<ShoppingCart>) {
       stateCtx.patchState({
         kibbles: []
-    });
-}
+      });
+    }     
 }
