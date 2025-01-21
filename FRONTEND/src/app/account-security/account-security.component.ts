@@ -40,7 +40,7 @@ export class AccountSecurityComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-  
+
     if (this.editPasswordForm.valid) {
       const updatedPasswordUser: UpdatePasswordDTO = {
         currentPassword: this.editPasswordForm.value.currentPassword, 

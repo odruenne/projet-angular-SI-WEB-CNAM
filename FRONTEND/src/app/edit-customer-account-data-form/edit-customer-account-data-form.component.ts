@@ -8,6 +8,8 @@ import { MessageService } from '../services/message.service';
 import { UpdateUserDTO } from '../models/UpdateUserDTO';
 import { CommonModule } from '@angular/common';
 import { FormFieldHighlightDirective } from '../form-field-highlight.directive';
+import { Store } from '@ngxs/store';
+import { ClearShoppingCart } from '../../store/actions/shoppingCart-action';
 
 @Component({
   selector: 'app-edit-customer-account-data-form',
@@ -25,7 +27,8 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private store: Store
   ) {
     this.updateAccountDataForm = this.formBuilder.group({
       lastName: ['', [Validators.required]],
@@ -95,6 +98,7 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   onDeleteAccount() : void {
     this.accountService.deleteUserAccount().subscribe({
       next: () => {
+        this.store.dispatch(new ClearShoppingCart());
         this.messageService.setMessage(
           `Votre compte a bien été supprimé ! Nous espérons vous revoir bientôt sur notre site !`
         );
@@ -102,6 +106,5 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
       },
       error: (err) => console.log('error : ', err),
     });
-
   }
 }

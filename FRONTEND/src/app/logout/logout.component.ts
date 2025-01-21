@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Store } from '@ngxs/store';
+import { ClearShoppingCart } from '../../store/actions/shoppingCart-action';
 
 @Component({
   selector: 'app-logout',
@@ -11,10 +13,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class LogoutComponent implements OnInit {
   
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private store: Store) {}
 
   ngOnInit(): void {
     this.authService.logout();
-    this.router.navigate(["/login"]);
+    this.store.dispatch(new ClearShoppingCart());
+    this.router.navigate(["/**"]);
   }
 }

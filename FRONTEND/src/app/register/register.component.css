@@ -6,9 +6,9 @@ h1 {
   text-align: center;
 }
 
-#error-message {
-  color: #D70000;
-  margin-bottom: 10px;
+.error {
+  text-align: center;
+  color: red;
   font-weight: bold;
 }
 

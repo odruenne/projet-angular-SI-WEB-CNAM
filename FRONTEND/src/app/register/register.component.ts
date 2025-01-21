@@ -5,11 +5,12 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/message.service';
 import { confirmPasswordValidator } from '../account-security/confirm-password.validator';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -48,6 +49,7 @@ export class RegisterComponent {
     event.preventDefault();
     this.errorMessage = null;
 
+    console.log("Form valide ? : ", this.createAccountForm.valid);
     if (this.createAccountForm.valid) {
       const registerDTO : RegisterDTO = {
         login: this.createAccountForm.value.login,

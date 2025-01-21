@@ -5,6 +5,7 @@ import { environment } from '../environments/environment'
 import { LoginDTO } from '../models/LoginDTO';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { RegisterDTO } from '../models/RegisterDTO';
+import { MessageService } from './message.service';
 
 
 /* AuthService est un service dans le front qui va gérer tout ce qui est en lien avec la connexion */
@@ -14,7 +15,7 @@ import { RegisterDTO } from '../models/RegisterDTO';
 
 export class AuthService {
  
-  constructor(private httpClient: HttpClient, private jwtService : JwtHelperService) { }
+  constructor(private httpClient: HttpClient, private jwtService : JwtHelperService, private messageService: MessageService) { }
 
   public register(registerDTO: RegisterDTO) : Observable<string> {
     return this.httpClient.post(
@@ -25,16 +26,27 @@ export class AuthService {
   }
 
 
-  public login(loginDTO: LoginDTO) : Observable<string> {
+  public login(loginDTO: LoginDTO): Observable<string> {
     return this.httpClient.post(
       environment.backendURL + "/auth/login", 
       loginDTO,
-      {responseType: 'text'}
-    )
-    .pipe(
-      tap((res) => localStorage.setItem(environment.access_token, res))
+      { responseType: 'text' }
+    ).pipe(
+      tap({
+        next: (res) => {
+          // Si la connexion est réussie
+          localStorage.setItem(environment.access_token, res);
+          this.messageService.setMessage('Connexion réussie, bienvenue !');
+        },
+        error: (err) => {
+          // Si une erreur se produit, définissez le message d'erreur ici aussi
+          this.messageService.setMessage('Login ou mot de passe invalides. Merci de réessayer.');
+          throw err;  // Relance l'erreur pour la propagation
+        }
+      })
     );
   }
+  
 
   public isTokenExpired() : boolean {
     return this.jwtService.isTokenExpired(this.getTokenFromLocalStorage());

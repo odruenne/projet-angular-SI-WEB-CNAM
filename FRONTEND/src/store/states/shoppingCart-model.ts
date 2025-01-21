@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AddItemToShoppingCart, DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart, RemoveItemFromShoppingCart } from '../actions/shoppingCart-action';
+import { AddItemToShoppingCart, ClearShoppingCart, DecrementQuantityFromShoppingCart, IncrementQuantityFromShoppingCart, RemoveItemFromShoppingCart } from '../actions/shoppingCart-action';
 import { ShoppingCart } from '../models/shoppingCart';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import { patch, updateItem } from '@ngxs/store/operators';
@@ -95,4 +95,11 @@ export class ShoppingCartState {
         )
       }
     }
+
+    @Action(ClearShoppingCart)
+    clearCart(stateCtx: StateContext<ShoppingCart>) {
+      stateCtx.patchState({
+        kibbles: []
+    });
+}
 }

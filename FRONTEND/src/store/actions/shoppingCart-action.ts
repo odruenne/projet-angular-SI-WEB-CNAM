@@ -23,3 +23,7 @@ export class DecrementQuantityFromShoppingCart {
 
   constructor(public item: KibblesDTO) {}
 }
+
+export class ClearShoppingCart {
+  static readonly type = '[ShoppingCart] Clear';
+}

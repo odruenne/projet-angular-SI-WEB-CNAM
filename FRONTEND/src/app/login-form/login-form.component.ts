@@ -13,45 +13,46 @@ import { MessageService } from '../services/message.service';
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })
-
-
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   connectionForm: FormGroup;
-  showErrorMessage : boolean = false;
+  errorMessage: string | null = null;
   welcomeMessage: string | null = null;
   
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private messageService : MessageService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private messageService : MessageService
+  ) {
     this.connectionForm = this.formBuilder.group({
-      login: ['',[Validators.required]],
-      password: ['',[Validators.required]]
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
 
-  }
-  ngOnInit(): void {
     this.welcomeMessage = this.messageService.getMessage();
-    if (this.welcomeMessage != null) {
-      this.showErrorMessage = true;
-    }
   }
 
-  onSubmit(event: Event) : void {
-    this.showErrorMessage = false;
+  onSubmit(event: Event): void {
+    this.errorMessage = null;
     event.preventDefault();
+
     if (this.connectionForm.valid) {
-      const loginDTO : LoginDTO = { 
+      const loginDTO: LoginDTO = {
         login: this.connectionForm.value.login,
         password: this.connectionForm.value.password,
       };
 
-      this.authService.login(loginDTO).subscribe(
-      {
-        next: () => this.router.navigate(['/catalog']),
-        error: _ => {
-          this.showErrorMessage = true;
+      this.authService.login(loginDTO).subscribe({
+        next: () => {
+          this.router.navigate(['/catalog']);
+        },
+        error: (err) => {
+          console.error('Erreur de connexion :', err);
+          this.errorMessage = this.messageService.getMessage();
+          console.log("Error message in component: ", this.errorMessage);
           this.connectionForm.reset();
         }
-      }
-      );
+      });
     }
   }
 }
