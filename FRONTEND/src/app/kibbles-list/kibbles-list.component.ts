@@ -33,6 +33,10 @@ export class KibblesList implements OnInit {
   }
 
   addItemToCart(kibble: KibblesDTO) {
-    this.store.dispatch(new AddItemToShoppingCart(kibble));
+    const kibbleToAdd = {
+      ...kibble,
+      quantity: 1,
+    };
+    this.store.dispatch(new AddItemToShoppingCart(kibbleToAdd));
   }
 }

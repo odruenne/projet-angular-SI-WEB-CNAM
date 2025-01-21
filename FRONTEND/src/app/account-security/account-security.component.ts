@@ -17,6 +17,7 @@ import { FormFieldHighlightDirective } from '../form-field-highlight.directive';
 })
 export class AccountSecurityComponent {
   editPasswordForm: FormGroup;
+  showErrorMessage: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private accountService: AccountService, private messageService : MessageService, private router: Router) {
     this.editPasswordForm = this.formBuilder.group(
@@ -40,24 +41,30 @@ export class AccountSecurityComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-
+    console.log("est valide ? : ", this.editPasswordForm.valid);
+    console.log("CP : ", this.editPasswordForm.value.currentPassword);
+    console.log("PW : ", this.editPasswordForm.value.newPassword);
+    console.log("CNP : ", this.editPasswordForm.value.confirmNewPassword);
     if (this.editPasswordForm.valid) {
       const updatedPasswordUser: UpdatePasswordDTO = {
         currentPassword: this.editPasswordForm.value.currentPassword, 
         password: this.editPasswordForm.value.newPassword,
       };
+
+      
   
       this.accountService.updateUserPassword(updatedPasswordUser).subscribe({
         next: () => {
-          this.messageService.setMessage('Votre mot de passe a bien été modifié !');
+          this.messageService.setMessage("confirmationChangementMotDePasse",'Votre mot de passe a bien été modifié !');
           this.router.navigate(['/account-security']);
         },
         error: (error) => {
           if (error.status === 400) {
-            this.messageService.setMessage(error.error.message);
+            this.showErrorMessage = true;
           } else {
             console.error('Erreur serveur : ', error);
           }
+          this.editPasswordForm.reset();
         },
       });
     }

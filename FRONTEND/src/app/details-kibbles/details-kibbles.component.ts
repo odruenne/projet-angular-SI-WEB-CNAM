@@ -79,6 +79,8 @@ export class DetailsKibblesComponent {
   }
 
   addItemToCart(): void {
+    // Faudrait que je récupère le contenu du panier
+    // ou alors la quantité de la kibble choisie qui est dans le panier
     if (this.selectedQuantity <= this.kibbles.quantity) {
       const kibbleToAdd = {
         ...this.kibbles,

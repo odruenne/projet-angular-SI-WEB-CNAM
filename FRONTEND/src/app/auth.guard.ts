@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isTokenExpired()) {
-      this.messageService.setMessage("Vous devez être connecté afin d'accéder à cette page.");
+      this.messageService.setMessage("obligationConnexion","Vous devez être connecté afin d'accéder à cette page.");
       this.router.navigate(['/logout']);
       return false;
     }

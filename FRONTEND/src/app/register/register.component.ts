@@ -29,7 +29,7 @@ export class RegisterComponent {
       city: ['', [Validators.required]],
       country: ['', [Validators.required]],
       login: ['',[Validators.required]],
-      password: [
+      newPassword: [
         '',
         [
           Validators.required,
@@ -53,7 +53,7 @@ export class RegisterComponent {
     if (this.createAccountForm.valid) {
       const registerDTO : RegisterDTO = {
         login: this.createAccountForm.value.login,
-        password: this.createAccountForm.value.password,
+        password: this.createAccountForm.value.newPassword,
         lastName: this.createAccountForm.value.lastName,
         firstName: this.createAccountForm.value.firstName,
         mailAddress: this.createAccountForm.value.mailAddress,
@@ -66,7 +66,7 @@ export class RegisterComponent {
       this.authService.register(registerDTO).subscribe({
         next: () => {
           this.messageService.setMessage(
-            `Merci ${registerDTO.login} pour votre inscription ! Vous pouvez désormais vous connecter !`
+            "confirmInscription",`Merci ${registerDTO.login} pour votre inscription ! Vous pouvez désormais vous connecter !`
           );
           this.router.navigate(['/login']);
         },

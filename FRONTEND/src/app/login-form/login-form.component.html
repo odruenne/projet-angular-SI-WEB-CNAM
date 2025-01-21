@@ -8,11 +8,10 @@
 
     <button type="submit">SE CONNECTER</button>
 </form>
-<!--CETTE DIV FOUT LA MERDE QUAND ON S'INSCRIT ELLE S'ACTIVE CETTE SHIBÊTE-->
-<div *ngIf="errorMessage">
-    <h1>Login ou mot de passe invalides. Merci de réessayer.</h1>
+<div *ngIf="showErrorMessage" id="error-message">
+  Votre login/mot de passe est invalide.
 </div>
 
-<div *ngIf="welcomeMessage" id="welcome-message">
+<div *ngIf="showWelcomeMessage" id="welcome-message">
     {{ welcomeMessage }}
 </div>

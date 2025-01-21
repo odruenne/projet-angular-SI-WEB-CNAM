@@ -4,15 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class MessageService {
+  private title: string | null = null;
   private message: string | null = null;
 
-  setMessage(message: string): void {
+  setMessage(title: string, message: string): void {
+    this.title = title;
     this.message = message;
   }
 
-  getMessage(): string | null {
+  getMessage(): { title: string | null, message: string | null } {
+    const tempTitle = this.title;
     const tempMessage = this.message;
+    this.title = null; 
     this.message = null; 
-    return tempMessage;
+    return { title: tempTitle, message: tempMessage };
   }
 }

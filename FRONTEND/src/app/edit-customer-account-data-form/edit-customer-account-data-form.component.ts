@@ -100,7 +100,7 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
       next: () => {
         this.store.dispatch(new ClearShoppingCart());
         this.messageService.setMessage(
-          `Votre compte a bien été supprimé ! Nous espérons vous revoir bientôt sur notre site !`
+          "confirmationSuppression",`Votre compte a bien été supprimé ! Nous espérons vous revoir bientôt sur notre site !`
         );
         this.router.navigate(['/**']);
       },

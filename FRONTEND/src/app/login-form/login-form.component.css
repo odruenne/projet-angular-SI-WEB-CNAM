@@ -85,6 +85,12 @@ button:active {
   transform: translateY(0);
 }
 
+#error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
 #welcome-message {
   text-align: center;
   font-family: 'Roboto';

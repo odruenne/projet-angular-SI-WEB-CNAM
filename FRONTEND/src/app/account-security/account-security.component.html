@@ -1,6 +1,9 @@
 <button routerLink="/account" id="back">Retourner aux options</button>
 <h1>Modifier mon mot de passe</h1>
-
+<div *ngIf="showErrorMessage" id="error">
+  <p>Les mots de passe ne correspondent pas.</p>
+  <p>Merci de vérifier que le mot de passe actuel correspondent <br/> ou que les nouveaux mots de passe correspondent.</p>
+</div>
 <form [formGroup]="editPasswordForm" (ngSubmit)="onSubmit($event)">
     <label for="currentPassword">Mot de passe actuel</label>
     <input type="password" id="currentPassword" name="currentPassword" formControlName="currentPassword" appFormFieldHighlight>

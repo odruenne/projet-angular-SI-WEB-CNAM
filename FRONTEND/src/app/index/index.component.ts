@@ -12,14 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class IndexComponent implements OnInit {
   showDeletedAccountMessage : boolean = false;
-  accountDeletedMessage: string | null = null;
-
+  shownMessage: string | null = "";
   constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.accountDeletedMessage = this.messageService.getMessage();
-    if (this.accountDeletedMessage != null) {
+    const { title, message } = this.messageService.getMessage();
+    if (title === "confirmationSuppression") {
       this.showDeletedAccountMessage = true;
+      this.shownMessage = message;
     }
   }
 }

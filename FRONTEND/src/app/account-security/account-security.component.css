@@ -26,6 +26,12 @@ h1 {
     text-align: center;
 }
 
+#error {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
+
 form {
     display: flex;
     flex-direction: column;

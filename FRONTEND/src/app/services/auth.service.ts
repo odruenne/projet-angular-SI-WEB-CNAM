@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { environment } from '../environments/environment'
 import { LoginDTO } from '../models/LoginDTO';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -34,14 +34,12 @@ export class AuthService {
     ).pipe(
       tap({
         next: (res) => {
-          // Si la connexion est réussie
           localStorage.setItem(environment.access_token, res);
-          this.messageService.setMessage('Connexion réussie, bienvenue !');
         },
         error: (err) => {
-          // Si une erreur se produit, définissez le message d'erreur ici aussi
-          this.messageService.setMessage('Login ou mot de passe invalides. Merci de réessayer.');
-          throw err;  // Relance l'erreur pour la propagation
+          console.log("Erreur dans la réponse : ", err);
+          this.messageService.setMessage("formInvalide", 'Login ou mot de passe invalides. Merci de réessayer.');
+          return throwError(() => err);
         }
       })
     );

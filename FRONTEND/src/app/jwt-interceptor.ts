@@ -20,10 +20,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
         return next.handle(req).pipe(
             catchError(err => {
-              if (err.status === 401) {
-                this.router.navigate(['/login']);
-                return EMPTY;
-              }
+                if (err.status === 401) {
+                    this.router.navigate(['/login']);
+                    return throwError(() => err);
+                }
               return throwError(() => err);
             })
         );  
